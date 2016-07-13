@@ -1,0 +1,134 @@
+body {
+    background-color: #f1f2f3;
+}
+
+#header-nav {
+    margin-bottom: 0;
+    background-color: #1ca049;
+    border-color: transparent;
+    box-shadow: 0 4px 2px -2px rgba(0,0,0,0.25);
+    border-radius: 0px;
+}
+
+#header-nav-logo {
+    background-image: url(../images/logo.png);
+    display: block;
+    width: 196px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+#header-nav p.navbar-text {
+    font-family: 'Oswald', sans-serif;
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 300;
+    font-style: italic;
+    margin: 0;
+    text-transform: uppercase;
+    padding-top: 10px;
+}
+
+.fixed-container {
+    max-width: 800px;
+}
+
+#tabs-container {
+    background-color: #ffffff;
+    margin-bottom: 1.5em;
+    margin-top: 2px;
+}
+
+#tabs-container li>a,
+#tabs-container li>a:focus,
+#tabs-container li>a:hover {
+    color: #cdcecf;
+    background-color: #ffffff;
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+#tabs-container li.active>a,
+#tabs-container li.active>a:focus,
+#tabs-container li.active>a:hover {
+    color: #303030;
+    background-color: #ffffff;
+    border-bottom: 2px solid #1ca049;
+}
+
+#pitch {
+    background-image: url(../images/pitch.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 567px;
+    width: 690px;
+}
+
+#squad {
+    position: absolute;
+    width: 100%;
+}
+
+#squad .player {
+    position: absolute;
+}
+
+#squad .player .plate {
+    width: 105px;
+    height: 40px;
+    background-color: #303030;
+}
+
+#squad .player .plate.empty .name {
+    background: url(../images/plus-icon.png) no-repeat 50% 50%;
+    width: 25px;
+    height: 25px;
+    display: block;
+    margin: 0 auto;
+    padding-top: 35%;
+}
+
+#squad .player .plate .name {
+    color: #ffffff;
+    margin: 0 auto;
+    width: 95px;
+    display: block;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+}
+
+#squad .player .kit {
+    min-width: 105px;
+    min-height: 57px;
+}
+
+#squad .player.filled .kit{
+    background: url(../images/player-kit.png) no-repeat 50%;
+    width: 105px;
+    height: 57px
+}
+
+#squad #p1.player.filled .kit{
+    background: url(../images/keeper-kit.png) no-repeat 50%;
+    height: 64px
+}
+
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-sm-min) { ... }
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-md-min) {
+    #pitch {
+        width: 750px;
+    }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-min) { ... }

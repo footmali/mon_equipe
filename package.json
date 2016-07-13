@@ -1,0 +1,19 @@
+{
+  "name": "team_builder",
+  "version": "1.0.0",
+  "description": "Footmali Team Builder App",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Footmali",
+  "license": "ISC",
+  "dependencies": {
+    "backbone": "^1.3.3",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.0",
+    "requirejs": "^2.2.0",
+    "text": "requirejs/text",
+    "underscore": "^1.8.3"
+  }
+}
