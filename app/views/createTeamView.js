@@ -95,7 +95,11 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage',
                 */
 
                 // Generate image
-                domtoimage.toPng(document.getElementById('canvas'))
+                var options = {
+                    width: 750,
+                    height: 567
+                }
+                domtoimage.toPng(document.getElementById('canvas'), options)
                     .then(function (dataUrl) {
 
                         //@todo: save to server
