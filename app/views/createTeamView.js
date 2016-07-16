@@ -92,7 +92,12 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'text!templates/create
                 * []3. Show modal with confirmation, thumbnail, and share button
                 */
 
-                
+                // Generate image
+                domtoimage.toPng(document.getElementById('canvas'))
+                    .then(function (dataUrl) {
+                        console.log(dataUrl);
+                    });
+            }
         });
 
         return CreateTeamView;
