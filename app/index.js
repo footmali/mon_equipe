@@ -19,6 +19,9 @@ requirejs.config({
         },
         underscore: {
             exports: '_'
+        },
+        domtoimage: {
+            exports: 'domtoimage'
         }
     }
 });
