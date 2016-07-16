@@ -1,5 +1,6 @@
-define(['backbone', 'underscore', 'jquery', 'domtoimage', 'text!templates/create-team.html'],
-    function(Backbone, _, $, domtoimage, appTemplate){
+define(['backbone', 'underscore', 'jquery', 'domtoimage',
+    'text!templates/create-team.html', 'text!templates/confirmationModal.html'],
+    function(Backbone, _, $, domtoimage, appTemplate, confirmModalTemplate){
         var CreateTeamView = Backbone.View.extend({
             template: _.template(appTemplate),
 
@@ -87,6 +88,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'text!templates/create
             },
 
             saveImage: function() {
+                var self = this;
                 /*[x]1. Generate Image
                 * []2. Save image to server/cloud
                 * []3. Show modal with confirmation, thumbnail, and share button
@@ -95,8 +97,30 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'text!templates/create
                 // Generate image
                 domtoimage.toPng(document.getElementById('canvas'))
                     .then(function (dataUrl) {
-                        console.log(dataUrl);
+
+                        //@todo: save to server
+
+                        // show confirmation modal
+                        self.showConfirmModal(dataUrl);
                     });
+            },
+
+            showConfirmModal: function(dataUrl) {
+                var template = _.template(confirmModalTemplate);
+
+                this.$el.append(template({
+                    imageUrl: 'http://www.footmali.com'
+                }));
+
+                this.$el.find('#confirmation-modal #thumbnail').css({
+                    'background-image': 'url('+dataUrl+')',
+                    'background-size': 'cover',
+                    'background-repeat': 'no-repeat',
+                    'background-origin': 'content-box',
+                    'height': '250px'
+                });
+
+                $('#confirmation-modal').modal('show');
             }
         });
 
