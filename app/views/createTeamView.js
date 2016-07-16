@@ -1,5 +1,6 @@
-define(['backbone', 'underscore', 'jquery', 'text!templates/create-team.html'],
-    function(Backbone, _, $, appTemplate){
+define(['backbone', 'underscore', 'jquery', 'domtoimage',
+    'text!templates/create-team.html', 'text!templates/confirmationModal.html'],
+    function(Backbone, _, $, domtoimage, appTemplate, confirmModalTemplate){
         var CreateTeamView = Backbone.View.extend({
             template: _.template(appTemplate),
 
@@ -14,7 +15,8 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/create-team.html'],
             events: {
                 "change #formation-option": "formationSelected",
                 "click .player": "onClickAddPlayer",
-                "click #players-pool a": "addPlayer"
+                "click #players-pool a": "addPlayer",
+                "click #saveButton": "saveImage"
             },
 
             render: function(options) {
@@ -83,6 +85,42 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/create-team.html'],
                     // close player pool modal
                     $('#players-pool-modal').modal('hide');
                 }
+            },
+
+            saveImage: function() {
+                var self = this;
+                /*[x]1. Generate Image
+                * []2. Save image to server/cloud
+                * []3. Show modal with confirmation, thumbnail, and share button
+                */
+
+                // Generate image
+                domtoimage.toPng(document.getElementById('canvas'))
+                    .then(function (dataUrl) {
+
+                        //@todo: save to server
+
+                        // show confirmation modal
+                        self.showConfirmModal(dataUrl);
+                    });
+            },
+
+            showConfirmModal: function(dataUrl) {
+                var template = _.template(confirmModalTemplate);
+
+                this.$el.append(template({
+                    imageUrl: 'http://www.footmali.com'
+                }));
+
+                this.$el.find('#confirmation-modal #thumbnail').css({
+                    'background-image': 'url('+dataUrl+')',
+                    'background-size': 'cover',
+                    'background-repeat': 'no-repeat',
+                    'background-origin': 'content-box',
+                    'height': '250px'
+                });
+
+                $('#confirmation-modal').modal('show');
             }
         });
 
