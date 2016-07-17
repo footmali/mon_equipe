@@ -56,12 +56,44 @@
       </div>
       <div class="modal-body">
            <div id="players-pool" class="list-group">
-               <% _.each(players, function(player){ %>
-                   <a href="#" class="list-group-item">
+             <a href="#" class="list-group-item active">GARDIENS</a>
+               <% var pKeepers = _.filter(players, function(myKeeper) {return myKeeper.mainPosition==="keeper";});
+               _.each(pKeepers, function(player){ %>
+                       <a href="#" class="list-group-item">
                        <strong class="name"><%= player.name %></strong>
                        <small class="position"><%= player.position %></small>
                    </a>
-                <% }); %>
+                <% });
+                <!-- DEFENDERS --> %>
+              <a href="#" class="list-group-item active">DEFENSEURS</a>
+            <% var pDefenders = _.filter(players, function(myDefender) {return myDefender.mainPosition==="defender";});
+              _.each(pDefenders, function(player){%>
+              <a href="#" class="list-group-item">
+              <strong class="name"><%= player.name %></strong>
+              <small class="position"><%= player.position %></small>
+              </a>
+              <% }); %>
+              <a href="#" class="list-group-item active">MILIEUX DE TERRAIN</a>
+              <!-- MIDFIELDERS -->
+            <% var pMidfielders = _.filter(players, function(myMidfielder) {return myMidfielder.mainPosition==="midfielder";});
+               _.each(pMidfielders, function(player){
+              %>
+              <a href="#" class="list-group-item">
+              <strong class="name"><%= player.name %></strong>
+              <small class="position"><%= player.position %></small>
+              </a>
+              <% }); %>
+              <a href="#" class="list-group-item active">ATTAQUANTS</a>
+              <!-- STRIKERS -->
+            <% var pStrikers = _.filter(players, function(myStriker) {return myStriker.mainPosition==="striker";});
+              _.each(pStrikers, function(player){
+               %>
+              <a href="#" class="list-group-item">
+              <strong class="name"><%= player.name %></strong>
+              <small class="position"><%= player.position %></small>
+              </a>
+              <% }); %>
+
           </div>
       </div>
     </div>
