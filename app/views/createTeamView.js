@@ -1,6 +1,6 @@
-define(['backbone', 'underscore', 'jquery', 'domtoimage',
+define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
     'text!templates/create-team.html', 'text!templates/confirmationModal.html'],
-    function(Backbone, _, $, domtoimage, appTemplate, confirmModalTemplate){
+    function(Backbone, _, $, domtoimage, aws, appTemplate, confirmModalTemplate){
         var CreateTeamView = Backbone.View.extend({
             template: _.template(appTemplate),
 
@@ -91,7 +91,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage',
                 var self = this;
                 /*[x]1. Generate Image
                 * []2. Save image to server/cloud
-                * []3. Show modal with confirmation, thumbnail, and share button
+                * [x]3. Show modal with confirmation, thumbnail, and share button
                 */
 
                 // Generate image
