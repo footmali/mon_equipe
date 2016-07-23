@@ -1,6 +1,6 @@
-define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
+define(['backbone', 'underscore', 'jquery', 'aws', 'collections/playerPool',
     'views/createTeamView', 'data/formations'],
-    function (Backbone, _, $, PlayerPool, CreateTeamView, formationsData) {
+    function (Backbone, _, $, AWS, PlayerPool, CreateTeamView, formationsData) {
 
         // Global event dispatcher
         var Bus = {};
@@ -9,11 +9,20 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
         //load players data
         var playerPool = new PlayerPool();
 
+        var bucket = new AWS.S3({
+            params: {
+                Bucket: 'mon-equipe'
+            },
+            accessKeyId: 'AKIAILUWK4N272D42KZA',
+            secretAccessKey: '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',
+            region: 'Frankfurt'
+        });
         //render main view
         var createTeamView = new CreateTeamView({
             el: '#create-team',
             formations: formationsData,
-            players: playerPool.toJSON()
+            players: playerPool.toJSON(),
+            bucket: bucket
         });
 
         //collection to hold selected players

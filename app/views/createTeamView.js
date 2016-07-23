@@ -1,6 +1,6 @@
 define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
     'text!templates/create-team.html', 'text!templates/confirmationModal.html'],
-    function(Backbone, _, $, domtoimage, aws, appTemplate, confirmModalTemplate){
+    function(Backbone, _, $, domtoimage, AWS, appTemplate, confirmModalTemplate){
         var CreateTeamView = Backbone.View.extend({
             template: _.template(appTemplate),
 
@@ -8,8 +8,15 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
 
             squadPosition: '',
 
+            bucket: {},
+
             initialize: function(options) {
+                this.bucket = options.bucket || {};
                 this.render(options);
+
+                this.on('imageUploaded', function(imageUrl) {
+                    this.showConfirmModal(imageUrl);
+                });
             },
 
             events: {
@@ -103,21 +110,37 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
                     .then(function (dataUrl) {
 
                         //@todo: save to server
+                        var team_name = $('input[name="team_name"]').val();
+                        var blob = self.dataURLtoBlob(dataUrl);
+                        var params = {
+                            Key: team_name,
+                            ContentType: 'image/png',
+                            Body: blob,
+                            ACL: 'public-read'
+                        };
+                        self.bucket.putObject(params, function (err, data) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(arguments);
+                                var imageUrl = 'https://s3.eu-central-1.amazonaws.com/mon-equipe/'+team_name
+                                self.trigger('imageUploaded', imageUrl);
+                            }
+                        });
 
-                        // show confirmation modal
-                        self.showConfirmModal(dataUrl);
+
                     });
             },
 
-            showConfirmModal: function(dataUrl) {
+            showConfirmModal: function(imageUrl) {
                 var template = _.template(confirmModalTemplate);
 
                 this.$el.append(template({
-                    imageUrl: 'http://www.footmali.com'
+                    imageUrl: imageUrl
                 }));
 
                 this.$el.find('#confirmation-modal #thumbnail').css({
-                    'background-image': 'url('+dataUrl+')',
+                    'background-image': 'url('+imageUrl+')',
                     'background-size': 'cover',
                     'background-repeat': 'no-repeat',
                     'background-origin': 'content-box',
@@ -125,6 +148,15 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
                 });
 
                 $('#confirmation-modal').modal('show');
+            },
+
+            dataURLtoBlob: function(dataurl) {
+                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+                while(n--){
+                    u8arr[n] = bstr.charCodeAt(n);
+                }
+                return new Blob([u8arr], {type:mime});
             }
         });
 
