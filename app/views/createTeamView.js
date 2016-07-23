@@ -96,40 +96,41 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
 
             saveImage: function() {
                 var self = this;
-                /*[x]1. Generate Image
-                * []2. Save image to server/cloud
-                * [x]3. Show modal with confirmation, thumbnail, and share button
-                */
+                var team_name = $('input[name="team_name"]').val();
 
-                // Generate image
-                var options = {
+                //Error if no team name is provided
+                if(_.isEmpty(team_name)){
+                    $('input[name="team_name"]').parent('form-group').addClass('has-error');
+                    return;
+                }
+
+                //Generate image
+                domtoimage.toPng(document.getElementById('canvas'), {
                     width: 750,
                     height: 567
-                }
-                domtoimage.toPng(document.getElementById('canvas'), options)
-                    .then(function (dataUrl) {
+                })
+                .then(function (dataUrl) {
 
-                        //@todo: save to server
-                        var team_name = $('input[name="team_name"]').val();
-                        var blob = self.dataURLtoBlob(dataUrl);
-                        var params = {
-                            Key: team_name,
-                            ContentType: 'image/png',
-                            Body: blob,
-                            ACL: 'public-read'
-                        };
-                        self.bucket.putObject(params, function (err, data) {
-                            if (err) {
-                                console.log(err);
-                            } else {
-                                console.log(arguments);
-                                var imageUrl = 'https://s3.eu-central-1.amazonaws.com/mon-equipe/'+team_name
-                                self.trigger('imageUploaded', imageUrl);
-                            }
-                        });
-
-
+                    //Save to server
+                    var blob = self.dataURLtoBlob(dataUrl);
+                    var params = {
+                        Key: team_name,
+                        ContentType: 'image/png',
+                        Body: blob,
+                        ACL: 'public-read'
+                    };
+                    self.bucket.putObject(params, function (err, data) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(arguments);
+                            var imageUrl = 'https://s3.eu-central-1.amazonaws.com/mon-equipe/'+team_name
+                            self.trigger('imageUploaded', imageUrl);
+                        }
                     });
+
+
+                });
             },
 
             showConfirmModal: function(imageUrl) {
