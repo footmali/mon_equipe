@@ -1,27 +1,22 @@
 <div class="col-sm-12">
-    <div id="form" class="row">
-        <form class="form-horizontal" action="/">
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="team_name" placeholder="Team Name" >
-                </div>
-                <div class="col-sm-2">
-                    <label for="formation">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Formation
-                    </label>
-                </div>
-                <div class="col-sm-4">
-                    <select id="formation-option" class="form-control" name="formation">
-                        <% _.each(formations, function(formation, key){ %>
-                            <option value="<%= key %>"><%= formation.name %></li>
-                        <% }); %>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
-                </div>
+    <div class="well">
+        <div class="row center-block">
+            <div class="col-sm-5">
+                <label for="team_name">Team Name</label>
+                <input type="text" class="form-control" name="team_name" placeholder="Team Name" >
             </div>
-        </form>
+            <div class="col-sm-4">
+                <label for="formation">Formation</label>
+                <select id="formation-option" class="form-control" name="formation">
+                    <% _.each(formations, function(formation, key){ %>
+                        <option value="<%= key %>"><%= formation.name %></li>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
+            </div>
+        </div>
     </div>
     <div id="canvas" class="row">
         <div class="col-sm-12">

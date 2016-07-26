@@ -31,7 +31,7 @@ body {
 }
 
 .fixed-container {
-    max-width: 800px;
+    max-width: 820px;
 }
 
 #tabs-container {
@@ -59,12 +59,17 @@ body {
     border-bottom: 2px solid #1ca049;
 }
 
+#saveButton {
+    margin-top: 25px;
+    width: 100%;
+}
+
 #pitch {
     background-image: url(../images/pitch.png);
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     height: 567px;
-    width: 690px;
+    width: 100%;
 }
 
 #squad {
