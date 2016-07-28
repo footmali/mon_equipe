@@ -125,8 +125,82 @@ body {
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 
+@media (max-width: 768px) {
+    .fixed-container {
+        width: 100%;
+        padding: 0;
+        max-width: 560px;
+    }
+
+    #tabs-container {
+        background-color: transparent;
+        margin-bottom: 0;
+    }
+
+    #header-tabs > li {
+        width: 50%;
+        float: left;
+    }
+
+    #create-team > .col-sm-12 {
+        padding: 0;
+    }
+
+    #pitch {
+        background-size: contain;
+        height: 303px;
+    }
+
+    #squad .player .kit {
+        min-width: 60px;
+        min-height: 40px;
+    }
+
+    #squad .player.filled .kit,
+    #squad #p1.player.filled .kit {
+        width: 60px;
+        height: 40px;
+        background-size: contain;
+        background-position-x: 65%;
+    }
+
+    #squad .player .plate {
+        width: 70px;
+        height: 35px;
+    }
+
+    #squad .player.filled .plate {
+        height: auto;
+        background-color: transparent;
+    }
+
+    #squad .player .plate.empty .name {
+        width: 15px;
+        height: 15px;
+        margin: 0 auto;
+        padding-top: 40%;
+        background-size: contain;
+    }
+
+    #squad .player .plate .name {
+        margin: 0 auto;
+        width: 100%;
+        display: block;
+        text-align: center;
+        height: auto;
+        line-height: normal;;
+        font-size: 10px
+    }
+
+
+}
+
 /* Small devices (tablets, 768px and up) */
-@media (min-width: @screen-sm-min) { ... }
+@media (min-width: 768px) {
+    .container {
+        width: 100%;
+    }
+}
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: @screen-md-min) {
