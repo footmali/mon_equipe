@@ -2,6 +2,8 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta content="width=device-width,initial-scale=1" name="viewport">
         <title>Team Builder</title>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
@@ -20,18 +22,16 @@
           </div>
         </nav>
          <div id="tabs-container">
-            <div class="container fixed-container">
-                <ul id="header-tabs" class="nav nav-justified" role="tablist">
-                    <li role="presentation" class="active">
-                        <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir autre équipes</a>
-                    </li>
-                </ul>
-            </div>
+             <ul id="header-tabs" class="nav nav-justified" role="tablist">
+                 <li role="presentation" class="active">
+                     <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
+                 </li>
+                 <li role="presentation">
+                     <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir autre équipes</a>
+                 </li>
+             </ul>
         </div>
-        <div class="container fixed-container">
+        <div class="container-fluid fixed-container">
             <div class="tab-content">
                 <div id="create-team" class="tab-pane active"></div>
                 <div id="view-teams" class="tab-pane"></div>

@@ -11,12 +11,18 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
             bucket: {},
 
             initialize: function(options) {
+                var self = this;
                 this.bucket = options.bucket || {};
                 this.render(options);
 
                 this.on('imageUploaded', function(imageUrl) {
                     this.showConfirmModal(imageUrl);
                 });
+
+                window.addEventListener("resize", function() {
+                    console.log('RESIZED');
+                	self.resizePitchHeight();
+                }, false);
             },
 
             events: {
@@ -36,6 +42,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
                 }));
 
                 this.initializeFormation();
+                this.resizePitchHeight();
 
                 return this;
             },
@@ -158,6 +165,13 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
                     u8arr[n] = bstr.charCodeAt(n);
                 }
                 return new Blob([u8arr], {type:mime});
+            },
+
+            resizePitchHeight: function() {
+                var width = $('#pitch').outerWidth(true);
+                var height = width * 0.756;
+
+                $('#pitch').height(height);
             }
         });
 
