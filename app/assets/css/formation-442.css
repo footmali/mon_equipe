@@ -1,0 +1,92 @@
+#squad.f442 #p1 {
+    left: 48%;
+    top: 5px;
+}
+#squad.f442 #p2 {
+    left: 19%;
+    top: 80px;
+}
+#squad.f442 #p3 {
+    left: 38%;
+    top: 80px;
+}
+#squad.f442 #p4 {
+    left: 57%;
+    top: 80px;
+}
+#squad.f442 #p5 {
+    left: 76%;
+    top: 80px;
+}
+#squad.f442 #p6 {
+    left: 19%;
+    top: 155px;
+}
+#squad.f442 #p7 {
+    left: 38%;
+    top: 155px;
+}
+#squad.f442 #p8 {
+    left: 57%;
+    top: 155px;
+}
+#squad.f442 #p9 {
+    left: 76%;
+    top: 155px;
+}
+#squad.f442 #p10 {
+    left: 38%;
+    top: 230px;
+}
+#squad.f442 #p11 {
+    left: 57%;
+    top: 230px;
+}
+
+/* 800px and up */
+@media (min-width: 800px) {
+    #squad.f442 #p1 {
+        left: 332px;
+        top: 75px;
+    }
+    #squad.f442 #p2 {
+        left: 114px;
+        top: 200px;
+    }
+    #squad.f442 #p3 {
+        left: 252px;
+        top: 200px;
+    }
+    #squad.f442 #p4 {
+        left: 391px;
+        top: 200px;
+    }
+    #squad.f442 #p5 {
+        left: 543px;
+        top: 200px;
+    }
+    #squad.f442 #p6 {
+        left: 114px;
+        top: 350px;
+    }
+    #squad.f442 #p7 {
+        left: 252px;
+        top: 350px;
+    }
+    #squad.f442 #p8 {
+        left: 391px;
+        top: 350px;
+    }
+    #squad.f442 #p9 {
+        left: 543px;
+        top: 350px;
+    }
+    #squad.f442 #p10 {
+        left: 252px;
+        top: 460px;
+    }
+    #squad.f442 #p11 {
+        left: 391px;
+        top: 460px;
+    }
+}

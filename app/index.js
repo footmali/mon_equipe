@@ -9,7 +9,9 @@ requirejs.config({
         data: '/app/data',
         backbone: '../node_modules/backbone/backbone-min',
         underscore: '../node_modules/underscore/underscore-min',
-        text: '../node_modules/text/text'
+        text: '../node_modules/text/text',
+        domtoimage: '../node_modules/dom-to-image/dist/dom-to-image.min',
+        aws: '../node_modules/aws-sdk/dist/aws-sdk.min'
     },
     shim: {
         backbone: {
@@ -18,6 +20,12 @@ requirejs.config({
         },
         underscore: {
             exports: '_'
+        },
+        domtoimage: {
+            exports: 'domtoimage'
+        },
+        aws: {
+            exports: 'AWS'
         }
     }
 });

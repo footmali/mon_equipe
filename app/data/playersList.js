@@ -2,53 +2,81 @@ define({
     "keepers": [
         {
             "name": "Djigui Diarra",
-            "position": "Keeper"
+            "position": "Keeper",
+            "mainPosition":"keeper"
+        },
+        {
+            "name": "Soumbeyla Diakité",
+            "position": "Keeper",
+            "mainPosition":"keeper"
+        },
+        {
+            "name": "Oumar Sissoko",
+            "position": "Keeper",
+            "mainPosition":"keeper"
+        },
+        {
+            "name": "Germain Berthé",
+            "position": "Keeper",
+            "mainPosition":"keeper"
         }
     ],
     "defenders": [
         {
             "name": "Hamari Traoré",
-            "position": "Right Back"
+            "position": "Right Back",
+              "mainPosition":"defender"
         },
         {
             "name": "Molla Wague",
-            "position": "Center Back"
+            "position": "Center Back",
+            "mainPosition":"defender"
         },
         {
             "name": "Ousmane Coulibaly",
-            "position": "Center Back"
+            "position": "Center Back",
+            "mainPosition":"defender"
         },
         {
             "name": "Youssouf Kone",
-            "position": "Left Back"
+            "position": "Left Back",
+            "mainPosition":"defender"
         }
     ],
     "midfielders": [
         {
             "name": "Sambou Yatabare",
-            "position": "Midfielder"
+            "position": "Midfielder",
+            "mainPosition":"midfielder"
         },
         {
             "name": "Birama Toure",
-            "position": "Midfielder"
+            "position": "Midfielder",
+            "mainPosition":"midfielder"
+
         },
         {
             "name": "Yacouba Sylla",
-            "position": "Midfielder"
+            "position": "Midfielder",
+            "mainPosition":"midfielder"
         },
         {
             "name": "Bakary Sako",
-            "position": "Midfielder"
+            "position": "Midfielder",
+            "mainPosition":"midfielder"
         }
     ],
     "attackers": [
         {
             "name": "Abdoulay Diaby",
-            "position": "Striker"
+            "position": "Striker",
+            "mainPosition":"striker"
+
         },
         {
             "name": "Cheick Diabate",
-            "position": "Striker"
+            "position": "Striker",
+            "mainPosition":"striker"
         }
     ]
 });

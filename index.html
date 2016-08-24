@@ -2,39 +2,64 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta content="width=device-width,initial-scale=1" name="viewport">
         <title>Team Builder</title>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="app/assets/css/style.css">
-        <link rel="stylesheet" href="app/assets/css/formations.css">
     </head>
     <body>
-        <nav id="header-nav" class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a id="header-nav-logo" class="navbar-brand" title="Footmali" href="#"></a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <p class="navbar-text">Mon Équipe</p>
-            </div>
-          </div>
-        </nav>
-         <div id="tabs-container">
-            <div class="container fixed-container">
-                <ul id="header-tabs" class="nav nav-justified" role="tablist">
-                    <li role="presentation" class="active">
-                        <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
-                    </li>
-                    <li role="presentation">
-                        <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir toutes les équipes</a>
-                    </li>
-                </ul>
+        <div id="app-header" class="header-container">
+            <nav id="header-nav" class="navbar navbar-default">
+              <div class="container-fluid">
+                <div class="navbar-header">
+                  <a id="header-nav-logo" class="navbar-brand" title="Footmali" href="#"></a>
+                </div>
+                <div class="collapse navbar-collapse">
+                    <p class="navbar-text">Mon Équipe</p>
+                </div>
+              </div>
+            </nav>
+             <div id="tabs-container">
+                 <ul id="header-tabs" class="nav nav-justified" role="tablist">
+                     <li role="presentation" class="active">
+                         <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
+                     </li>
+                     <li role="presentation">
+                         <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir autre équipes</a>
+                     </li>
+                 </ul>
             </div>
         </div>
-        <div class="container fixed-container">
+        <div id="app-container" class="container-fluid fixed-container content-container">
             <div class="tab-content">
                 <div id="create-team" class="tab-pane active"></div>
                 <div id="view-teams" class="tab-pane"></div>
+            </div>
+            <div id="mobile-menu" class="visible-xs-block">
+                <div class="row center-block">
+                    <div class="col-xs-8">
+                        <label for="team_name">Team Name</label>
+                        <input type="text" class="form-control mobile" name="team_name"
+                        placeholder="Team Name" data-toggle="tooltip"
+                        data-placement="top" title="" data-original-title="Team name cannot be empty">
+                    </div>
+                    <div class="col-xs-4">
+                        <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-lanscape-warning" class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="message center-block">
+                        <p>
+                            Please rotate your screen to portrait position.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
