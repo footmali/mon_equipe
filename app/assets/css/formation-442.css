@@ -1,91 +1,92 @@
 #squad.f442 #p1 {
-    left: 343px;
-    top: 55px;
+    left: 48%;
+    top: 5px;
 }
 #squad.f442 #p2 {
-    left: 125px;
-    top: 175px;
+    left: 19%;
+    top: 80px;
 }
 #squad.f442 #p3 {
-    left: 270px;
-    top: 175px;
+    left: 38%;
+    top: 80px;
 }
 #squad.f442 #p4 {
-    left: 415px;
-    top: 175px;
+    left: 57%;
+    top: 80px;
 }
 #squad.f442 #p5 {
-    left: 560px;
-    top: 175px;
+    left: 76%;
+    top: 80px;
 }
 #squad.f442 #p6 {
-    left: 125px;
-    top: 295px;
+    left: 19%;
+    top: 155px;
 }
 #squad.f442 #p7 {
-    left: 270px;
-    top: 295px;
+    left: 38%;
+    top: 155px;
 }
 #squad.f442 #p8 {
-    left: 415px;
-    top: 295px;
+    left: 57%;
+    top: 155px;
 }
 #squad.f442 #p9 {
-    left: 560px;
-    top: 295px;
+    left: 76%;
+    top: 155px;
 }
 #squad.f442 #p10 {
-    left: 270px;
-    top: 415px;
+    left: 38%;
+    top: 230px;
 }
 #squad.f442 #p11 {
-    left: 415px;
-    top: 415px;
+    left: 57%;
+    top: 230px;
 }
 
-@media (max-width: 768px) {
+/* 800px and up */
+@media (min-width: 800px) {
     #squad.f442 #p1 {
-        left: 42%;
-        top: 3px;
+        left: 332px;
+        top: 75px;
     }
     #squad.f442 #p2 {
-        left: 11%;
-        top: 70px;
+        left: 114px;
+        top: 200px;
     }
     #squad.f442 #p3 {
-        left: 32%;
-        top: 70px;
+        left: 252px;
+        top: 200px;
     }
     #squad.f442 #p4 {
-        left: 53%;
-        top: 70px;
+        left: 391px;
+        top: 200px;
     }
     #squad.f442 #p5 {
-        left: 73%;
-        top: 70px;
+        left: 543px;
+        top: 200px;
     }
     #squad.f442 #p6 {
-        left: 11%;
-        top: 145px;
+        left: 114px;
+        top: 350px;
     }
     #squad.f442 #p7 {
-        left: 32%;
-        top: 145px;
+        left: 252px;
+        top: 350px;
     }
     #squad.f442 #p8 {
-        left: 53%;
-        top: 145px;
+        left: 391px;
+        top: 350px;
     }
     #squad.f442 #p9 {
-        left: 73%;
-        top: 145px;
+        left: 543px;
+        top: 350px;
     }
     #squad.f442 #p10 {
-        left: 32%;
-        top: 220px;
+        left: 252px;
+        top: 460px;
     }
     #squad.f442 #p11 {
-        left: 53%;
-        top: 220px;
+        left: 391px;
+        top: 460px;
     }
 }

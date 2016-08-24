@@ -1,70 +1,84 @@
-define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
+define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/team',
     'text!templates/create-team.html', 'text!templates/confirmationModal.html'],
-    function(Backbone, _, $, domtoimage, AWS, appTemplate, confirmModalTemplate){
+    function(Backbone, _, $, domtoimage, AWS, Team, appTemplate, confirmModalTemplate){
         var CreateTeamView = Backbone.View.extend({
             template: _.template(appTemplate),
-
             currentFormation: '',
-
             squadPosition: '',
-
             bucket: {},
+            players: {},
+            formations: {},
+            team: {},
 
             initialize: function(options) {
-                var self = this;
-                this.bucket = options.bucket || {};
-                this.render(options);
+                var self        = this;
+                this.bucket     = options.bucket || {};
+                this.players    = options.players || {};
+                this.formations = options.formations || {};
+                this.team = new Team();
 
                 this.on('imageUploaded', function(imageUrl) {
                     this.showConfirmModal(imageUrl);
                 });
 
-                window.addEventListener("resize", function() {
-                    console.log('RESIZED');
-                	self.resizePitchHeight();
-                }, false);
+                this.on('viewRendered', function() {
+                    this.initializeFormation();
+                });
+
+                this.render();
             },
 
             events: {
                 "change #formation-option": "formationSelected",
+                "click #mobile-formation li": "formationSelected",
                 "click .player": "onClickAddPlayer",
                 "click #players-pool a": "addPlayer",
                 "click #saveButton": "saveImage"
             },
 
-            render: function(options) {
-                var formations = options.formations || {};
-                var players = options.players || {};
+            render: function() {
+                var self = this;
+                this.initializeFormation();
 
                 this.$el.html(this.template({
-                    formations: formations,
-                    players: players
+                    formations: self.formations,
+                    currentFormation: self.currentFormation,
+                    players: self.players,
+                    team: self.team
                 }));
 
-                this.initializeFormation();
-                this.resizePitchHeight();
+                // @TODO: Update active formation selection
 
+                this.trigger('viewRendered');
                 return this;
             },
 
             initializeFormation: function() {
                 var formation = this.$el.find('#formation-option').val();
 
-                this.currentFormation = formation;
+                if(_.isEmpty(this.currentFormation)){
+                    this.currentFormation = formation || 'f442';
+                }
 
-                this.$el.find('#squad').addClass(formation);
+                this.$el.find('#pitch').addClass(this.currentFormation);
 
             },
 
-            formationSelected: function() {
-                var formation = this.$el.find('#formation-option').val();
+            formationSelected: function(event) {
+                var formation = '';
 
-                // remove current formation class
-                this.$el.find('#squad').removeClass(this.currentFormation);
+                if($(event.target).parents('#mobile-formation').length > 0){
+                    formation = $(event.target).attr('data-formation');
+                }
+                else {
+                    formation = this.$el.find('#formation-option').val();
+                }
 
-                // update currentFormation var & add class to DOM
-                this.currentFormation = formation;
-                this.$el.find('#squad').addClass(formation);
+                if (this.currentFormation != formation) {
+                    // update currentFormation
+                    this.currentFormation = formation;
+                    this.render();
+                }
             },
 
             onClickAddPlayer: function(event) {
@@ -73,6 +87,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
             },
 
             addPlayer: function(event) {
+                var self = this;
                 var player = $(event.currentTarget);
 
                 // if player is already choosen do nothing
@@ -83,18 +98,20 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
                     var playerName = $('.name', player).text();
                     var formationPosition = '.player[data-position="'+this.squadPosition+'"]';
 
-                    // remove empty class from player name plate & modal toggle class
-                    $(formationPosition).find('.plate').removeClass('empty')
-                        .removeAttr('data-toggle', 'data-target');
-
                     // add player name to plate
                     $(formationPosition).find('.plate .name').text(playerName);
 
                     // add filled class to field position
-                    $(formationPosition).addClass('filled')
+                    $(formationPosition).addClass('filled').removeClass('empty')
 
                     // disable player from selection
                     player.addClass('disabled');
+
+                    //store in team collections
+                    this.team.add({
+                        position: self.squadPosition,
+                        name: playerName
+                    }, {merge: true});
 
                     // close player pool modal
                     $('#players-pool-modal').modal('hide');
@@ -103,18 +120,26 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
 
             saveImage: function() {
                 var self = this;
-                var team_name = $('input[name="team_name"]').val();
+                var mobile_name = $('input[name="team_name"].mobile').val();
+                var large_name = $('input[name="team_name"].large').val();
+                var team_name = _.isEmpty(mobile_name) ? large_name : mobile_name;
 
                 //Error if no team name is provided
                 if(_.isEmpty(team_name)){
-                    $('input[name="team_name"]').parent('form-group').addClass('has-error');
+                    $('input[name="team_name"]').tooltip('show');
                     return;
                 }
 
+                // get content from pitch
+                var team = $('#pitch').html();
+
+                // add pitch content to render canvas
+                $('#render-canvas').html(team)
+
                 //Generate image
-                domtoimage.toPng(document.getElementById('canvas'), {
-                    width: 750,
-                    height: 567
+                domtoimage.toPng(document.getElementById('render-canvas'), {
+                    width: 768,
+                    height: 1024
                 })
                 .then(function (dataUrl) {
 
@@ -167,12 +192,6 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws',
                 return new Blob([u8arr], {type:mime});
             },
 
-            resizePitchHeight: function() {
-                var width = $('#pitch').outerWidth(true);
-                var height = width * 0.756;
-
-                $('#pitch').height(height);
-            }
         });
 
         return CreateTeamView;

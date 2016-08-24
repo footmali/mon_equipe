@@ -2,12 +2,15 @@ body {
     background-color: #f1f2f3;
 }
 
+.content-container {
+    padding: 0;
+}
+
 #header-nav {
     margin-bottom: 0;
     background-color: #1ca049;
-    border-color: transparent;
+    border: none;
     box-shadow: 0 4px 2px -2px rgba(0,0,0,0.25);
-    border-radius: 0px;
 }
 
 #header-nav-logo {
@@ -22,7 +25,6 @@ body {
 #header-nav p.navbar-text {
     font-family: 'Oswald', sans-serif;
     color: #FFFFFF;
-    font-size: 20px;
     font-weight: 300;
     font-style: italic;
     margin: 0;
@@ -36,7 +38,6 @@ body {
     color: #cdcecf;
     background-color: #ffffff;
     font-family: 'Oswald', sans-serif;
-    font-size: 20px;
     font-weight: 400;
     text-transform: uppercase;
 }
@@ -54,7 +55,24 @@ body {
     width: 100%;
 }
 
-/*======== less than 768 ========*/
+#mobile-menu {
+    background-color: #ffffff;
+    padding: 15px 0;
+}
+
+#mobile-formation {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 99;
+}
+
+#mobile-formation button {
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, .65);
+    border: none;
+}
+
 #tabs-container {
     background-color: transparent;
     margin-bottom: 0;
@@ -73,88 +91,101 @@ body {
     padding: 0;
 }
 
-#pitch {
-    background-image: url(../images/pitch.png);
+.pitch {
+    width: 100%;
+    background-image: url(../images/pitch.svg);
     background-size: cover;
     background-repeat: no-repeat;
+    height: calc(100vh - 186px);
+    padding: 30px 0 0 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.pitch .pitch-area {
     width: 100%;
-    height: 303px;
+    height: 100%;
+    margin: 0;
 }
 
-#squad {
-    position: absolute;
-    width: 100%;
+.pitch .player .kit {
+    min-width: 50px;
+    min-height: 50px;
 }
 
-#squad .player {
-    position: absolute;
-}
-
-#squad .player .kit {
-    min-width: 60px;
-    min-height: 40px;
-}
-
-#squad .player.filled .kit,
-#squad #p1.player.filled .kit {
-    width: 60px;
-    height: 40px;
+.pitch .player.empty .kit{
+    background: url(../images/empty-player-kit.png) no-repeat 50%;
     background-size: contain;
-    background-position-x: 65%;
+}
+.pitch #p1.player.empty .kit{
+    background: url(../images/empty-keeper-kit.png) no-repeat 50%;
+    background-size: contain;
 }
 
-#squad .player.filled .kit{
+.pitch .player.filled .kit{
     background: url(../images/player-kit.png) no-repeat 50%;
-}
-
-#squad #p1.player.filled .kit{
-    background: url(../images/keeper-kit.png) no-repeat 50%;
-}
-
-#squad .player .plate {
-background-color: #303030;
-    width: 70px;
-    height: 35px;
-}
-
-#squad .player.filled .plate {
-    height: auto;
-    background-color: transparent;
-}
-
-#squad .player .plate.empty .name {
-    background: url(../images/plus-icon.png) no-repeat 50% 50%;
-    width: 15px;
-    height: 15px;
-    display: block;
-    margin: 0 auto;
-    padding-top: 40%;
     background-size: contain;
 }
 
-#squad .player .plate .name {
-    color: #ffffff;
-    margin: 0 auto;
-    width: 100%;
-    display: block;
+.pitch #p1.player.filled .kit{
+    background: url(../images/keeper-kit.png) no-repeat 50%;
+    background-size: contain;
+}
+
+.pitch .player .plate {
     text-align: center;
-    height: auto;
-    line-height: normal;
-    font-size: 10px;
+}
+
+.pitch .player .name {
+    color: #ffffff;
+    font-weight: 900;
+}
+
+#render-canvas {
+    width: 768px;
+    height: 1024px;
+    display: none;
+}
+
+@media (orientation: portrait){
+    #app-header, #app-container {
+        display: block;
+    }
+
+    #mobile-lanscape-warning {
+        display: none;
+    }
+}
+@media (max-width: 799px) and (orientation: landscape) {
+    #app-header, #app-container {
+        display: none;
+    }
+
+    #mobile-lanscape-warning {
+        display: block;
+    }
+
+    #mobile-lanscape-warning .messsage {
+        text-align: center;
+    }
 }
 
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
-320,360,384,480,800
-@media (min-width: 480) {
-
-}
-
-/* Small devices (tablets, 768px and up) */
+/* Small devices (tablets, 800px and up) */
 @media (min-width: 800px) {
     .fixed-container {
         max-width: 760px;
         margin: 0 auto;
+    }
+
+    #mobile-lanscape-warning {
+        display: none;
+    }
+
+    #header-nav p.navbar-text {
+        font-size: 1.5em;
     }
 
     #tabs-container {
@@ -163,47 +194,19 @@ background-color: #303030;
         margin-top: 2px;
     }
 
+    #tabs-container li>a,
+    #tabs-container li>a:focus,
+    #tabs-container li>a:hover {
+        font-size: 1.5em;
+    }
+
     #header-tabs > li {
         width: 1%;
         float: none;
     }
 
-    #canvas > div.col-sm-12 {
-        padding: 0 15px;
-    }
-
-    #pitch {
-        background-size: contain;
-        height: 573px;
-    }
-
-    #squad .player .kit {
-        min-width: 105px;
-        min-height: 57px;
-    }
-
-    #squad #p1.player.filled .kit{
-        height: 64px
-    }
-
-    #squad .player.filled .kit{
-        width: 105px;
-        height: 57px
-    }
-
-    #squad .player .plate {
-        width: 105px;
-        height: 40px;
-    }
-
-    #squad .player .plate.empty .name {
-        width: 25px;
-        height: 25px;
-    }
-
-    #squad .player .plate .name {
-        width: 95px;
-        font-size: inherit;
+    .pitch {
+        padding-top: 55px;
     }
 }
 

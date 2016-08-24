@@ -1,8 +1,6 @@
 define(['backbone', 'underscore', 'jquery', 'aws', 'collections/playerPool',
     'views/createTeamView', 'data/formations'],
     function (Backbone, _, $, AWS, PlayerPool, CreateTeamView, formationsData) {
-
-        // Global event dispatcher
         var Bus = {};
         _.extend(Bus, Backbone.Events);
 
@@ -17,6 +15,7 @@ define(['backbone', 'underscore', 'jquery', 'aws', 'collections/playerPool',
             secretAccessKey: 'MF9JWOKbn9EWcNFvwOlq+KSyGgppZsvtz0FF8PNw',
             region: 'Frankfurt'
         });
+
         //render main view
         var createTeamView = new CreateTeamView({
             el: '#create-team',
@@ -24,12 +23,4 @@ define(['backbone', 'underscore', 'jquery', 'aws', 'collections/playerPool',
             players: playerPool.toJSON(),
             bucket: bucket
         });
-
-        //collection to hold selected players
-        //var team = new Team();
-
-        // Event Listners
-            //appView.on('formationChanged');
-
-        console.log('Team Builder App', playerPool.at(0).get('name'));
     });
