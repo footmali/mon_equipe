@@ -109,27 +109,75 @@
 
 <!-- Modal -->
 <div class="modal fade" id="players-pool-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span>&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Players Pool</h4>
-      </div>
-      <div class="modal-body">
-           <div id="players-pool" class="list-group">
-               <% _.each(players, function(player){ %>
-                   <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
-                   <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
-                       <strong class="name"><%= player.name %></strong>
-                       <small class="position"><%= player.position %></small>
-                   </a>
-                <% }); %>
-          </div>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Players Pool</h4>
+            </div>
+            <div class="modal-body">
+               <div id="players-pool" class="list-group">
+                   <a href="#" class="list-group-item active">GARDIENS</a>
+                   <% var pKeepers = _.filter(players, function(myKeeper){
+                                            return myKeeper.mainPosition === "keeper";
+                                        });
+                    %>
+                   <% _.each(pKeepers, function(player){ %>
+                       <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                       <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                           <strong class="name"><%= player.name %></strong>
+                           <small class="position"><%= player.position %></small>
+                       </a>
+                    <% }); %>
+
+                    <!-- DEFENDERS -->
+                    <a href="#" class="list-group-item active">DEFENSEURS</a>
+                    <% var pDefenders = _.filter(players, function(myDefender){
+                                            return myDefender.mainPosition === "defender";
+                                        });
+                    %>
+                    <% _.each(pDefenders, function(player){ %>
+                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                            <strong class="name"><%= player.name %></strong>
+                            <small class="position"><%= player.position %></small>
+                        </a>
+                    <% }); %>
+
+                    <!-- MIDFIELDERS -->
+                    <a href="#" class="list-group-item active">MILIEUX DE TERRAIN</a>
+                    <% var pMidfielders = _.filter(players, function(myMidfielder){
+                                                return myMidfielder.mainPosition === "midfielder";
+                                            });
+                    %>
+                    <% _.each(pMidfielders, function(player){ %>
+                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                            <strong class="name"><%= player.name %></strong>
+                            <small class="position"><%= player.position %></small>
+                        </a>
+                    <% }); %>
+
+                    <!-- STRIKERS -->
+                    <a href="#" class="list-group-item active">ATTAQUANTS</a>
+                    <% var pStrikers = _.filter(players, function(myStriker){
+                                            return myStriker.mainPosition === "striker";
+                                        });
+                    %>
+                    <% _.each(pStrikers, function(player){ %>
+                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                            <strong class="name"><%= player.name %></strong>
+                            <small class="position"><%= player.position %></small>
+                        </a>
+                    <% }); %>
+
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <div id="render-canvas" class="pitch"></div>
