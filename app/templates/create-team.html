@@ -1,101 +1,183 @@
 <div class="col-sm-12">
-    <div id="form" class="row">
-        <form class="form-horizontal" action="/">
-            <div class="form-group">
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="team_name" placeholder="Team Name" >
-                </div>
-                <div class="col-sm-2">
-                    <label for="formation">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span> Formation
-                    </label>
-                </div>
-                <div class="col-sm-4">
-                    <select id="formation-option" class="form-control" name="formation">
-                        <% _.each(formations, function(formation, key){ %>
-                            <option value="<%= key %>"><%= formation.name %></li>
-                        <% }); %>
-                    </select>
-                </div>
-                <div class="col-sm-2">
-                    <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
-                </div>
+    <div id="menu" class="well hidden-xs">
+        <div class="row center-block">
+            <div class="col-sm-5">
+                <label for="team_name">Team Name</label>
+                <input type="text" class="form-control large" name="team_name"
+                    placeholder="Team Name" data-toggle="tooltip"
+                    data-placement="top" title="" data-original-title="Team name cannot be empty">
             </div>
-        </form>
+            <div class="col-sm-4">
+                <label for="formation">Formation</label>
+                <select id="formation-option" class="form-control" name="formation">
+                    <% _.each(formations, function(formation, key){ %>
+                        <option value="<%= key %>"><%= formation.name %></li>
+                    <% }); %>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
+            </div>
+        </div>
     </div>
-    <div id="canvas" class="row">
-        <div class="col-sm-12">
-            <div id="squad" class="row">
-                <div class="col-sm-12">
-                    <% for(var i = 1; i < 12; i ++){ %>
-                        <div id="p<%= i %>" class="player" data-position="<%= i %>">
-                            <div class="kit"></div>
-                            <div class="plate empty" data-toggle="modal" data-target="#players-pool-modal">
-                                <span class="name"></span>
-                            </div>
-                        </div>
-                    <% } %>
+    <div id="mobile-formation" class="dropdown visible-xs-block">
+        <button class="btn btn-default dropdown-toggle" type="button" id="mobile-formation-dropdown" data-toggle="dropdown">
+            Formation <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="mobile-formation-dropdown">
+            <% _.each(formations, function(formation, key){ %>
+                <li>
+                    <a href="#" data-formation="<%= key %>" class="selected" >
+                        <%= formation.name %>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+    <div id="pitch" class="row pitch">
+        <% var positionCounter = 1; var formation = formations[currentFormation]; %>
+        <div id="keeper" class="row pitch-area">
+            <% for(var i = 1; i <= 1; i ++){ %>
+                <% var player = _.first(team.where({ position: positionCounter.toString() })); %>
+                <div id="p<%= positionCounter %>"
+                    class="col-xs-12 player <% _.isEmpty(player) ? print('empty'): print('filled'); %>"
+                    data-position="<%= positionCounter %>"  data-toggle="modal"
+                    data-target="#players-pool-modal">
+                    <div class="kit"></div>
+                    <div class="plate">
+                        <span class="name">
+                            <% !_.isEmpty(player) ? print(player.get('name')): print(''); %>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div id="pitch">
-                <!-- <img src="/app/assets/images/half-rotate.png" style="max-width:100%;" /> -->
-            </div>
+                <% positionCounter++; %>
+            <% } %>
+        </div>
+        <div id="defense" class="row pitch-area">
+            <% for(var i = 1; i <= formation.defense; i ++){ %>
+                <% var player = _.first(team.where({ position: positionCounter.toString() })); %>
+                <div id="p<%= positionCounter %>"
+                    class="col-xs-<%= 12/formation.defense %> player <% _.isEmpty(player) ? print('empty'): print('filled'); %>"
+                    data-position="<%= positionCounter %>"  data-toggle="modal"
+                    data-target="#players-pool-modal">
+                    <div class="kit"></div>
+                    <div class="plate">
+                        <span class="name">
+                            <% !_.isEmpty(player) ? print(player.get('name')): print(''); %>
+                        </span>
+                    </div>
+                </div>
+                <% positionCounter++; %>
+            <% } %>
+        </div>
+        <div id="midfield" class="row pitch-area">
+            <% for(var i = 1; i <= formation.midfield; i ++){ %>
+            <% var player = _.first(team.where({ position: positionCounter.toString() })); %>
+                <div id="p<%= positionCounter %>"
+                    class="col-xs-<%= 12/formation.midfield %> player <% _.isEmpty(player) ? print('empty'): print('filled'); %>"
+                    data-position="<%= positionCounter %>"  data-toggle="modal"
+                    data-target="#players-pool-modal">
+                    <div class="kit"></div>
+                    <div class="plate">
+                        <span class="name">
+                            <% !_.isEmpty(player) ? print(player.get('name')): print(''); %>
+                        </span>
+                    </div>
+                </div>
+                <% positionCounter++; %>
+            <% } %>
+        </div>
+        <div id="attack" class="row pitch-area">
+            <% for(var i = 1; i <= formation.attack; i ++){ %>
+            <% var player = _.first(team.where({ position: positionCounter.toString() })); %>
+                <div id="p<%= positionCounter %>"
+                    class="col-xs-<%= 12/formation.attack %> player <% _.isEmpty(player) ? print('empty'): print('filled'); %>"
+                    data-position="<%= positionCounter %>"  data-toggle="modal"
+                    data-target="#players-pool-modal">
+                    <div class="kit"></div>
+                    <div class="plate">
+                        <span class="name">
+                            <% !_.isEmpty(player) ? print(player.get('name')): print(''); %>
+                        </span>
+                    </div>
+                </div>
+                <% positionCounter++; %>
+            <% } %>
         </div>
     </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="players-pool-modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-            <span>&times;</span>
-        </button>
-        <h4 class="modal-title" id="myModalLabel">Players Pool</h4>
-      </div>
-      <div class="modal-body">
-           <div id="players-pool" class="list-group">
-             <a href="#" class="list-group-item active">GARDIENS</a>
-               <% var pKeepers = _.filter(players, function(myKeeper) {return myKeeper.mainPosition==="keeper";});
-               _.each(pKeepers, function(player){ %>
-                       <a href="#" class="list-group-item">
-                       <strong class="name"><%= player.name %></strong>
-                       <small class="position"><%= player.position %></small>
-                   </a>
-                <% });
-                <!-- DEFENDERS --> %>
-              <a href="#" class="list-group-item active">DEFENSEURS</a>
-            <% var pDefenders = _.filter(players, function(myDefender) {return myDefender.mainPosition==="defender";});
-              _.each(pDefenders, function(player){%>
-              <a href="#" class="list-group-item">
-              <strong class="name"><%= player.name %></strong>
-              <small class="position"><%= player.position %></small>
-              </a>
-              <% }); %>
-              <a href="#" class="list-group-item active">MILIEUX DE TERRAIN</a>
-              <!-- MIDFIELDERS -->
-            <% var pMidfielders = _.filter(players, function(myMidfielder) {return myMidfielder.mainPosition==="midfielder";});
-               _.each(pMidfielders, function(player){
-              %>
-              <a href="#" class="list-group-item">
-              <strong class="name"><%= player.name %></strong>
-              <small class="position"><%= player.position %></small>
-              </a>
-              <% }); %>
-              <a href="#" class="list-group-item active">ATTAQUANTS</a>
-              <!-- STRIKERS -->
-            <% var pStrikers = _.filter(players, function(myStriker) {return myStriker.mainPosition==="striker";});
-              _.each(pStrikers, function(player){
-               %>
-              <a href="#" class="list-group-item">
-              <strong class="name"><%= player.name %></strong>
-              <small class="position"><%= player.position %></small>
-              </a>
-              <% }); %>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Players Pool</h4>
+            </div>
+            <div class="modal-body">
+               <div id="players-pool" class="list-group">
+                   <a href="#" class="list-group-item active">GARDIENS</a>
+                   <% var pKeepers = _.filter(players, function(myKeeper){
+                                            return myKeeper.mainPosition === "keeper";
+                                        });
+                    %>
+                   <% _.each(pKeepers, function(player){ %>
+                       <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                       <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                           <strong class="name"><%= player.name %></strong>
+                           <small class="position"><%= player.position %></small>
+                       </a>
+                    <% }); %>
 
-          </div>
-      </div>
+                    <!-- DEFENDERS -->
+                    <a href="#" class="list-group-item active">DEFENSEURS</a>
+                    <% var pDefenders = _.filter(players, function(myDefender){
+                                            return myDefender.mainPosition === "defender";
+                                        });
+                    %>
+                    <% _.each(pDefenders, function(player){ %>
+                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                            <strong class="name"><%= player.name %></strong>
+                            <small class="position"><%= player.position %></small>
+                        </a>
+                    <% }); %>
+
+                    <!-- MIDFIELDERS -->
+                    <a href="#" class="list-group-item active">MILIEUX DE TERRAIN</a>
+                    <% var pMidfielders = _.filter(players, function(myMidfielder){
+                                                return myMidfielder.mainPosition === "midfielder";
+                                            });
+                    %>
+                    <% _.each(pMidfielders, function(player){ %>
+                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                            <strong class="name"><%= player.name %></strong>
+                            <small class="position"><%= player.position %></small>
+                        </a>
+                    <% }); %>
+
+                    <!-- STRIKERS -->
+                    <a href="#" class="list-group-item active">ATTAQUANTS</a>
+                    <% var pStrikers = _.filter(players, function(myStriker){
+                                            return myStriker.mainPosition === "striker";
+                                        });
+                    %>
+                    <% _.each(pStrikers, function(player){ %>
+                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
+                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                            <strong class="name"><%= player.name %></strong>
+                            <small class="position"><%= player.position %></small>
+                        </a>
+                    <% }); %>
+
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
+
+<div id="render-canvas" class="pitch"></div>
