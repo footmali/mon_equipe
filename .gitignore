@@ -4,6 +4,8 @@
 ### Dir ###
 node_modules
 comps
+public
+public/**/
 
 ### OSX ###
 *.DS_Store
@@ -32,3 +34,5 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+/vendor/

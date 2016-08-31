@@ -1,0 +1,7 @@
+{
+    "name": "footmali/mon-equipe",
+    "description": "Footmali team builder app",
+    "require": {
+        "intervention/image": "^2.3"
+    }
+}

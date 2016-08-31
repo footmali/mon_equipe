@@ -50,7 +50,7 @@ body {
     border-bottom: 2px solid #1ca049;
 }
 
-#saveButton {
+#saveButton, #saveButtonMobile {
     margin-top: 25px;
     width: 100%;
 }
@@ -146,6 +146,10 @@ body {
     width: 768px;
     height: 1024px;
     display: none;
+}
+
+html {
+    overflow-y: hidden;
 }
 
 @media (orientation: portrait){

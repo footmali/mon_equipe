@@ -23,3 +23,7 @@ From the root directory type the command below in your terminal:
 ```
 ./serve.sh
 ```
+
+```
+php -t ./ -S 0.0.0.0:8000
+```

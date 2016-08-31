@@ -25,6 +25,10 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     this.initializeFormation();
                 });
 
+                $('#saveButtonMobile').click(function() {
+                    self.saveImage();
+                });
+
                 this.render();
             },
 
@@ -33,7 +37,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 "click #mobile-formation li": "formationSelected",
                 "click .player": "onClickAddPlayer",
                 "click #players-pool a": "addPlayer",
-                "click #saveButton": "saveImage"
+                "click #saveButton": "saveImage",
             },
 
             render: function() {
@@ -130,38 +134,24 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     return;
                 }
 
-                // get content from pitch
-                var team = $('#pitch').html();
-
                 // add pitch content to render canvas
-                $('#render-canvas').html(team)
+                var canvas = $('#render-canvas');
+                canvas.html($('#pitch').html());
 
                 //Generate image
-                domtoimage.toPng(document.getElementById('render-canvas'), {
+                domtoimage.toPng(canvas[0], {
                     width: 768,
-                    height: 1024
+                    height: 1024,
+                    style: {
+                        display: 'flex'
+                    }
                 })
                 .then(function (dataUrl) {
-
+                    var formData = new FormData();
+                    formData.append('name', team_name);
+                    formData.append('image', dataUrl);
                     //Save to server
-                    var blob = self.dataURLtoBlob(dataUrl);
-                    var params = {
-                        Key: team_name,
-                        ContentType: 'image/png',
-                        Body: blob,
-                        ACL: 'public-read'
-                    };
-                    self.bucket.putObject(params, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log(arguments);
-                            var imageUrl = 'https://s3.eu-central-1.amazonaws.com/mon-equipe/'+team_name
-                            self.trigger('imageUploaded', imageUrl);
-                        }
-                    });
-
-
+                    self.upload(formData);
                 });
             },
 
@@ -183,14 +173,19 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 $('#confirmation-modal').modal('show');
             },
 
-            dataURLtoBlob: function(dataurl) {
-                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-                while(n--){
-                    u8arr[n] = bstr.charCodeAt(n);
-                }
-                return new Blob([u8arr], {type:mime});
-            },
+            upload: function(data) {
+                var promise = $.ajax({
+                    method: 'post',
+                    url: 'upload.php',
+                    data: data,
+                    processData: false,
+                    contentType: false
+                }).done(function(resp){
+                    self.trigger('imageUploaded', resp);
+                });
+
+                return promise;
+            }
 
         });
 
