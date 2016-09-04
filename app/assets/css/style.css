@@ -10,6 +10,7 @@ body {
     margin-bottom: 0;
     background-color: #1ca049;
     border: none;
+    border-radius: 0;
     box-shadow: 0 4px 2px -2px rgba(0,0,0,0.25);
 }
 
@@ -24,12 +25,32 @@ body {
 
 #header-nav p.navbar-text {
     font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
     color: #FFFFFF;
     font-weight: 300;
     font-style: italic;
     margin: 0;
     text-transform: uppercase;
     padding-top: 10px;
+}
+
+.container-fluid > .navbar-header {
+    float: left;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.navbar-collapse.collapse {
+    display: block!important;
+    height: auto!important;
+    padding-bottom: 0;
+    overflow: visible!important;
+    margin-right: 0;
+    margin-left: 0;
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 #tabs-container li>a,
@@ -148,10 +169,7 @@ body {
     display: none;
 }
 
-html {
-    overflow-y: hidden;
-}
-
+/*===== Mobile portrait ======*/
 @media (orientation: portrait){
     #app-header, #app-container {
         display: block;
@@ -161,7 +179,9 @@ html {
         display: none;
     }
 }
-@media (max-width: 799px) and (orientation: landscape) {
+
+/*===== Mobile landscape ======*/
+@media (max-width: 799px) and (orientation: landscape) and (min-aspect-ratio: 16/9) {
     #app-header, #app-container {
         display: none;
     }
@@ -175,6 +195,17 @@ html {
     }
 }
 
+/*===== Mobile portrait with keyboard ======*/
+@media (orientation: landscape) and (max-aspect-ratio: 16/9) {
+    .pitch{
+        height: 135vh; /* account for keyboard space */
+    }
+
+    #mobile-lanscape-warning {
+        display: none;
+    }
+}
+
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 /* Small devices (tablets, 800px and up) */
@@ -184,12 +215,12 @@ html {
         margin: 0 auto;
     }
 
-    #mobile-lanscape-warning {
-        display: none;
+    .container-fluid > .navbar-header {
+        margin-left: 50px;
     }
 
-    #header-nav p.navbar-text {
-        font-size: 1.5em;
+    #mobile-lanscape-warning {
+        display: none;
     }
 
     #tabs-container {

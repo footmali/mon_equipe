@@ -9,6 +9,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
             players: {},
             formations: {},
             team: {},
+            team_name: '',
 
             initialize: function(options) {
                 var self        = this;
@@ -17,16 +18,28 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 this.formations = options.formations || {};
                 this.team = new Team();
 
+                // callback for image upload event
                 this.on('imageUploaded', function(imageUrl) {
                     this.showConfirmModal(imageUrl);
                 });
 
+                // callback for view rendered event
                 this.on('viewRendered', function() {
                     this.initializeFormation();
                 });
 
+                // listen for the mobile submit, because it out of view scope
                 $('#saveButtonMobile').click(function() {
                     self.saveImage();
+                });
+
+                // Sync the value of the two team name input fields
+                $('body').on('keydown', 'input[name="team_name"]', function() {
+                    var value = $(this).val();
+                    console.log(value);
+                    $('input[name="team_name"]').each(function() {
+                        $(this).val(value);
+                    });
                 });
 
                 this.render();
@@ -48,7 +61,8 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     formations: self.formations,
                     currentFormation: self.currentFormation,
                     players: self.players,
-                    team: self.team
+                    team: self.team,
+                    team_name: self.team_name,
                 }));
 
                 // @TODO: Update active formation selection
@@ -81,6 +95,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 if (this.currentFormation != formation) {
                     // update currentFormation
                     this.currentFormation = formation;
+                    this.team_name = this.getTeamName();
                     this.render();
                 }
             },
@@ -124,9 +139,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
 
             saveImage: function() {
                 var self = this;
-                var mobile_name = $('input[name="team_name"].mobile').val();
-                var large_name = $('input[name="team_name"].large').val();
-                var team_name = _.isEmpty(mobile_name) ? large_name : mobile_name;
+                var team_name = this.getTeamName();
 
                 //Error if no team name is provided
                 if(_.isEmpty(team_name)){
@@ -153,6 +166,14 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     //Save to server
                     self.upload(formData);
                 });
+            },
+
+            getTeamName: function() {
+                var mobile_name = $('input[name="team_name"].mobile').val();
+                var large_name = $('input[name="team_name"].large').val();
+                var team_name = _.isEmpty(mobile_name) ? large_name : mobile_name;
+
+                return team_name;
             },
 
             showConfirmModal: function(imageUrl) {
