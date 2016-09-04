@@ -4,8 +4,7 @@
 ### Dir ###
 node_modules
 comps
-public
-public/**/
+public/teams
 
 ### OSX ###
 *.DS_Store
