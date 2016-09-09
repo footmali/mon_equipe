@@ -9,22 +9,22 @@
       </div>
       <div class="modal-body">
           <div class="row">
-              <div class="col-sm-8">
-                  <div id="thumbnail"></div>
+              <div class="col-xs-12">
+                  <div id="thumbnail">
+                      <img src="/public/teams/<%= images.medium %>" alt="" />
+                  </div>
               </div>
-              <div id="share" class="col-sm-4">
-                  <p style="text-align: center;"">
-                      Partagez votre équipe avec vos amis sur Facebook
-                  </p>
-                  <p style="text-align: center;"">
-                      <span class="glyphicon glyphicon-arrow-down"></span>
-                  </p>
-                  <p style="text-align: center;">
-                    <iframe
-                        src="https://www.facebook.com/plugins/share_button.php?href=<%= imageUrl %>&layout=button&size=large&mobile_iframe=true&appId=714044432027505&width=73&height=28"
-                        width="73" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true">
-                    </iframe>
-                  </p>
+              <div id="share" class="col-xs-12">
+                    <div id="menu" class="well">
+                      <p class="lead">Partagez votre équipe avec vos amis sur Facebook</p>
+                      <p><span class="glyphicon glyphicon-arrow-down"></span></p>
+                      <p>
+                          <button id="confirm-share" type="button" class="btn btn-success"
+                            data-url="<%= window.location.host %>/public/teams/<%= images.original %>">
+                              Partagez
+                          </button>
+                      </p>
+                  </div>
               </div>
           </div>
       </div>

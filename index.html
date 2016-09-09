@@ -66,4 +66,22 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script data-main="app/index" src="node_modules/requirejs/require.js" async></script>
+    <!-- Facebook -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '1018961134869165',
+                status: true,
+                xfbml: true,
+                version: 'v2.7'
+            });
+        };
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/fr_FR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 </html>

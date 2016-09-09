@@ -19,8 +19,8 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 this.team = new Team();
 
                 // callback for image upload event
-                this.on('imageUploaded', function(imageUrl) {
-                    this.showConfirmModal(imageUrl);
+                this.on('imageUploaded', function(resp) {
+                    this.showConfirmModal(resp);
                 });
 
                 // callback for view rendered event
@@ -34,7 +34,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 });
 
                 // Sync the value of the two team name input fields
-                $('body').on('keydown', 'input[name="team_name"]', function() {
+                $('body').on('keyup', 'input[name="team_name"]', function() {
                     var value = $(this).val();
                     console.log(value);
                     $('input[name="team_name"]').each(function() {
@@ -176,25 +176,25 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 return team_name;
             },
 
-            showConfirmModal: function(imageUrl) {
+            showConfirmModal: function(resp) {
                 var template = _.template(confirmModalTemplate);
-
                 this.$el.append(template({
-                    imageUrl: imageUrl
+                    images: resp
                 }));
 
-                this.$el.find('#confirmation-modal #thumbnail').css({
-                    'background-image': 'url('+imageUrl+')',
-                    'background-size': 'cover',
-                    'background-repeat': 'no-repeat',
-                    'background-origin': 'content-box',
-                    'height': '250px'
-                });
+                // this.$el.find('#confirmation-modal #thumbnail').css({
+                //     'background-image': 'url('+imageUrl+')',
+                //     'background-size': 'cover',
+                //     'background-repeat': 'no-repeat',
+                //     'background-origin': 'content-box',
+                //     'height': '250px'
+                // });
 
                 $('#confirmation-modal').modal('show');
             },
 
             upload: function(data) {
+                var self = this;
                 var promise = $.ajax({
                     method: 'post',
                     url: 'upload.php',
@@ -202,7 +202,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     processData: false,
                     contentType: false
                 }).done(function(resp){
-                    self.trigger('imageUploaded', resp);
+                    self.trigger('imageUploaded', JSON.parse(resp));
                 });
 
                 return promise;

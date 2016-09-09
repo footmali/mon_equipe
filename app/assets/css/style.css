@@ -169,6 +169,33 @@ body {
     display: none;
 }
 
+#confirm-share, #saveButton, #saveButtonMobile {
+    background-color: #fff;
+    color: #1ca049;
+    border: none;
+    border-bottom: 2px solid #1ca049;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    -webkit-transition: all 0.5s cubic-bezier(.17,.67,.83,.67); /* Safari */
+    transition: all 0.5s cubic-bezier(.17,.67,.83,.67);
+}
+
+#confirmation-modal #thumbnail,
+#confirmation-modal #share p {
+    text-align: center;
+}
+
+#confirm-share:hover, #saveButton:hover, #saveButtonMobile:hover {
+    background-color: #1ca049;
+    color: #ffffff;
+    border: none;
+    border-bottom: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
 /*===== Mobile portrait ======*/
 @media (orientation: portrait){
     #app-header, #app-container {
@@ -196,7 +223,7 @@ body {
 }
 
 /*===== Mobile portrait with keyboard ======*/
-@media (orientation: landscape) and (max-aspect-ratio: 16/9) {
+@media (max-width: 799px) and (orientation: landscape) and (max-aspect-ratio: 16/9) {
     .pitch{
         height: 135vh; /* account for keyboard space */
     }
