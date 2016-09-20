@@ -55,6 +55,7 @@ $small  =  Image::make($post["image"])->resize(150, null, function ($constraint)
 $team = array(
     'name'      => $post['name'],
     'original'  => $image->basename,
+    'facebook'  => $facebook->basename,
     'medium'    => $medium->basename,
     'small'     => $small->basename,
     'created'   => date('Y-m-d')

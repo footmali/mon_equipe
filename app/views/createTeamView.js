@@ -26,6 +26,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 // callback for view rendered event
                 this.on('viewRendered', function() {
                     this.initializeFormation();
+                    $('#saveButton, #saveButtonMobile').removeAttr('disabled');
                 });
 
                 // listen for the mobile submit, because it out of view scope
@@ -40,6 +41,10 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     $('input[name="team_name"]').each(function() {
                         $(this).val(value);
                     });
+                });
+                // remove tooltip on focus of team name input fields
+                $('body').on('focus', 'input[name="team_name"]',function() {
+                    $('input[name="team_name"]').tooltip('destroy');
                 });
 
                 this.render();
@@ -126,7 +131,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     // disable player from selection
                     player.addClass('disabled');
 
-                    //store in team collections
+                    //store player in team collections
                     this.team.add({
                         position: self.squadPosition,
                         name: playerName
@@ -138,12 +143,15 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
             },
 
             saveImage: function() {
+                //disable buttons
+                $('#saveButton, #saveButtonMobile').attr('disabled', 'disabled');
                 var self = this;
                 var team_name = this.getTeamName();
 
                 //Error if no team name is provided
                 if(_.isEmpty(team_name)){
                     $('input[name="team_name"]').tooltip('show');
+                    $('#saveButton, #saveButtonMobile').removeAttr('disabled');
                     return;
                 }
 
@@ -179,12 +187,20 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
             },
 
             showConfirmModal: function(resp) {
+                var self = this;
                 var template = _.template(confirmModalTemplate);
                 this.$el.append(template({
                     images: resp
                 }));
 
                 $('#confirmation-modal').modal('show');
+                $('#confirmation-modal').on('hidden.bs.modal', function (e) {
+                    //reset team creation canvas
+                    $('#saveButton, #saveButtonMobile').val('');
+                    self.team = new Team();
+                    self.team_name = '';
+                    self.render();
+                })
             },
 
             upload: function(data) {
