@@ -147,14 +147,16 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     return;
                 }
 
-                // add pitch content to render canvas
+                // add pitch content to render canvases
                 var canvas = $('#render-canvas');
+                var facebook = $('#render-facebook');
                 canvas.html($('#pitch').html());
+                facebook.html($('#pitch').html());
 
                 //Generate image
                 domtoimage.toPng(canvas[0], {
-                    width: 768,
-                    height: 1024,
+                    width: 1200,
+                    height: 900,
                     style: {
                         display: 'flex'
                     }
@@ -181,14 +183,6 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 this.$el.append(template({
                     images: resp
                 }));
-
-                // this.$el.find('#confirmation-modal #thumbnail').css({
-                //     'background-image': 'url('+imageUrl+')',
-                //     'background-size': 'cover',
-                //     'background-repeat': 'no-repeat',
-                //     'background-origin': 'content-box',
-                //     'height': '250px'
-                // });
 
                 $('#confirmation-modal').modal('show');
             },

@@ -11,31 +11,45 @@ $redis = new Predis();
 
 $post = $_POST;
 
-$watermark = __DIR__ . "/app/assets/images/logo.png"; // footmali logo
+$watermark = __DIR__ . "/app/assets/images/watermark-banner.png"; // footmali logo
+
 $file_name = strtolower(str_replace(' ', '_', $post['name'])); // convert team name to a lowercase & underscore
 
-// original image
+// original image 1200 x 900
 $image  =  Image::make($post["image"])
-            ->insert($watermark, 'bottom-right')
-            ->text('www.footmali.com', 50, 974, function($font){
-                $font->size(24);
-                $font->color(array(255, 255, 255, 0.5));
-            });
+            ->text('WWW.FOOTMALI.COM', 388, 433, function($font){
+                $font->file(__DIR__ . "/app/assets/font/Oswald-Bold.ttf");
+                $font->size(48);
+                $font->color(array(255, 255, 255, 0.25));
+            })
+            ->text('WWW.FOOTMALI.COM', 388, 693, function($font){
+                $font->file(__DIR__ . "/app/assets/font/Oswald-Bold.ttf");
+                $font->size(48);
+                $font->color(array(255, 255, 255, 0.25));
+            })->save('public/teams/'. $file_name . '.png', 100);
+
+$template = Image::make(__DIR__ . "/app/assets/images/facebook-template.png");
+$footer   = Image::make(__DIR__ . "/app/assets/images/facebook-template-footer.png");
+$temp_image    = $image->resize(768, null, function ($constraint) {
+    $constraint->aspectRatio();
+})->sharpen(8);
+$facebook = Image::canvas(1200, 630, '#44bb44')
+                ->insert($template)
+                ->insert($temp_image, 'top-left', 16, 16)
+                ->insert($footer, 'bottom-left')
+                ->sharpen(2)
+                ->save('public/teams/'. $file_name . '_facebook.png', 100);
 
 // medium thumbnail
 $medium =  Image::make($post["image"])->resize(221, null, function ($constraint) {
     $constraint->aspectRatio();
-});
+})->save('public/teams/'. $file_name . '_medium.png', 100);
 
 // small thumbnail
 $small  =  Image::make($post["image"])->resize(150, null, function ($constraint) {
     $constraint->aspectRatio();
-});
+})->save('public/teams/'. $file_name . '_small.png', 100);
 
-// save the images
-$image->save('public/teams/'. $file_name . '.png');
-$medium->save('public/teams/'. $file_name . '_medium.png');
-$small->save('public/teams/'. $file_name . '_small.png');
 
 // Array of all team metadata
 $team = array(
@@ -47,8 +61,8 @@ $team = array(
 );
 
 // redis operations
-$redis->hmset($file_name, $team); // save redis set with filename as key
-$redis->rpush("team_hashes", $file_name); // save set 'key' into list for retrieval
+//$redis->hmset($file_name, $team); // save redis set with filename as key
+//$redis->rpush("team_hashes", $file_name); // save set 'key' into list for retrieval
 
 $return = json_encode($team);
 print $return;

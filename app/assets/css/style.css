@@ -145,28 +145,45 @@ body {
 }
 
 .pitch .player.filled .kit{
-    background: url(../images/player-kit.png) no-repeat 50%;
+    background: url(../images/player-kit-full.png) no-repeat 50%;
     background-size: contain;
 }
 
 .pitch #p1.player.filled .kit{
-    background: url(../images/keeper-kit.png) no-repeat 50%;
+    background: url(../images/keeper-kit-full.png) no-repeat 50%;
     background-size: contain;
 }
 
 .pitch .player .plate {
     text-align: center;
+    margin-top: 3px;
 }
 
 .pitch .player .name {
     color: #ffffff;
     font-weight: 900;
+    font-size: 85%;
+    line-height: 1.25;
+    padding: 10px;
+    display: inline-block;
+}
+.pitch .player.filled .name {
+    background-color: rgba(0,0,0,0.35);
 }
 
 #render-canvas {
     width: 768px;
     height: 1024px;
     display: none;
+}
+
+#render-canvas.pitch .player .kit {
+    height: 90px;
+}
+
+#render-canvas.pitch .player .name{
+    font-size: 110%;
+    font-feature-settings:
 }
 
 #confirm-share, #saveButton, #saveButtonMobile {
