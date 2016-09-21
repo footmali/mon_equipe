@@ -11,7 +11,7 @@
           <div class="row">
               <div class="col-xs-12">
                   <div id="thumbnail">
-                      <img src="/public/teams/<%= images.medium %>" alt="" />
+                      <img src="/public/teams/<%= team.image_medium %>" alt="" />
                   </div>
               </div>
               <div id="share" class="col-xs-12">
@@ -19,8 +19,7 @@
                       <p class="lead">Partagez votre équipe avec vos amis sur Facebook</p>
                       <p><span class="glyphicon glyphicon-arrow-down"></span></p>
                       <p>
-                          <button id="confirm-share" type="button" class="btn btn-success"
-                            data-url="<%= window.location.host %>/public/teams/<%= images.facebook %>">
+                          <button id="confirm-share" type="button" class="btn btn-success" data-team="<%= team %>">
                               Partagez
                           </button>
                       </p>

@@ -16,13 +16,27 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
 
         //listener for share button
         $('body').on('click', '#confirm-share', function() {
-            var shareUrl = $(this).attr('data-url');
+            var team = $(this).attr('data-team');
             FB.ui({
-                method: 'share',
-                display: 'popup',
-                href: shareUrl,
-                quote: 'Voir mon equipe',
-                hashtag: '#footmaliMonEquipe'
+                method: 'feed',
+
+                //The link attached to this post
+                link: 'http://' + window.location.host + '/#/team/' + team._id,
+
+                //The URL of a picture attached to this post
+                picture: 'http://' + window.location.host + '/public/teams/' + team.image_facebook,
+
+                 //The name of the link attachment
+                name: 'name text',
+
+                 //The caption of the link (appears beneath the link name)
+                caption: 'caption text',
+
+                //The description of the link (appears beneath the link caption)
+                description: 'description text',
+
+                //Comma-separated list used in Facebook Insights to help you measure the performance
+                ref: 'monequipe'
             }, function(response){
                 if (response && !response.error_message) {
                     console.log('Posting completed.');

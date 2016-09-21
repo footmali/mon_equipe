@@ -118,6 +118,15 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 if(player.hasClass('disabled')) {
                     return;
                 }else{
+                    //@TODO enabled the replacing player
+                    var replacePlayer = this.team.where({position: this.squadPosition}).length;
+                    if(replacePlayer){
+                        var rpName = $('.player[data-position="'+this.squadPosition+'"]')
+                                        .find('.plate .name').text();
+                        console.log(rpName);
+                        rpParent = $('#players-pool .name')
+                    }
+
                     // extract player name and field position number
                     var playerName = $('.name', player).text();
                     var formationPosition = '.player[data-position="'+this.squadPosition+'"]';
@@ -190,13 +199,14 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 var self = this;
                 var template = _.template(confirmModalTemplate);
                 this.$el.append(template({
-                    images: resp
+                    team: resp
                 }));
 
                 $('#confirmation-modal').modal('show');
                 $('#confirmation-modal').on('hidden.bs.modal', function (e) {
                     //reset team creation canvas
-                    $('#saveButton, #saveButtonMobile').val('');
+                    $('#saveButton').val('');
+                    $('#saveButtonMobile').val('');
                     self.team = new Team();
                     self.team_name = '';
                     self.render();
@@ -212,6 +222,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     processData: false,
                     contentType: false
                 }).done(function(resp){
+                    //@TODO handle bad response
                     self.trigger('imageUploaded', JSON.parse(resp));
                 });
 
