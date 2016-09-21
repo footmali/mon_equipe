@@ -5,13 +5,16 @@
                 <label for="team_name">Team Name</label>
                 <input type="text" class="form-control large" name="team_name"
                     placeholder="Team Name" data-toggle="tooltip"
-                    data-placement="top" title="" data-original-title="Team name cannot be empty">
+                    data-placement="top" title="" data-original-title="Team name cannot be empty"
+                    value="<%= team_name %>">
             </div>
             <div class="col-sm-4">
                 <label for="formation">Formation</label>
                 <select id="formation-option" class="form-control" name="formation">
                     <% _.each(formations, function(formation, key){ %>
-                        <option value="<%= key %>"><%= formation.name %></li>
+                        <option value="<%= key %>" <% currentFormation === key ? print('selected'): print(''); %>>
+                            <%= formation.name %>
+                        </option>
                     <% }); %>
                 </select>
             </div>
@@ -105,6 +108,7 @@
             <% } %>
         </div>
     </div>
+    <div id="render-canvas" class="pitch"></div>
 </div>
 
 <!-- Modal -->
@@ -179,5 +183,3 @@
         </div>
     </div>
 </div>
-
-<div id="render-canvas" class="pitch"></div>

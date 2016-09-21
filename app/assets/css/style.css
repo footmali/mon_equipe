@@ -10,6 +10,7 @@ body {
     margin-bottom: 0;
     background-color: #1ca049;
     border: none;
+    border-radius: 0;
     box-shadow: 0 4px 2px -2px rgba(0,0,0,0.25);
 }
 
@@ -24,12 +25,32 @@ body {
 
 #header-nav p.navbar-text {
     font-family: 'Oswald', sans-serif;
+    font-size: 1.5em;
     color: #FFFFFF;
     font-weight: 300;
     font-style: italic;
     margin: 0;
     text-transform: uppercase;
     padding-top: 10px;
+}
+
+.container-fluid > .navbar-header {
+    float: left;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.navbar-collapse.collapse {
+    display: block!important;
+    height: auto!important;
+    padding-bottom: 0;
+    overflow: visible!important;
+    margin-right: 0;
+    margin-left: 0;
+    width: auto;
+    border-top: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
 #tabs-container li>a,
@@ -50,7 +71,7 @@ body {
     border-bottom: 2px solid #1ca049;
 }
 
-#saveButton {
+#saveButton, #saveButtonMobile {
     margin-top: 25px;
     width: 100%;
 }
@@ -124,22 +145,30 @@ body {
 }
 
 .pitch .player.filled .kit{
-    background: url(../images/player-kit.png) no-repeat 50%;
+    background: url(../images/player-kit-full.png) no-repeat 50%;
     background-size: contain;
 }
 
 .pitch #p1.player.filled .kit{
-    background: url(../images/keeper-kit.png) no-repeat 50%;
+    background: url(../images/keeper-kit-full.png) no-repeat 50%;
     background-size: contain;
 }
 
 .pitch .player .plate {
     text-align: center;
+    margin-top: 3px;
 }
 
 .pitch .player .name {
     color: #ffffff;
     font-weight: 900;
+    font-size: 85%;
+    line-height: 1.25;
+    padding: 10px;
+    display: inline-block;
+}
+.pitch .player.filled .name {
+    background-color: rgba(0,0,0,0.35);
 }
 
 #render-canvas {
@@ -148,6 +177,55 @@ body {
     display: none;
 }
 
+#render-canvas.pitch .player .kit {
+    height: 90px;
+}
+
+#render-canvas.pitch .player .name{
+    font-size: 110%;
+    font-feature-settings:
+}
+
+#confirm-share, #saveButton, #saveButtonMobile {
+    background-color: #fff;
+    color: #1ca049;
+    border: none;
+    border-bottom: 2px solid #1ca049;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    -webkit-transition: all 0.5s cubic-bezier(.17,.67,.83,.67); /* Safari */
+    transition: all 0.5s cubic-bezier(.17,.67,.83,.67);
+    box-shadow: 0px -1px 1px #ddd;
+}
+
+#confirmation-modal #share {
+    margin-top: 15px;
+}
+
+#confirmation-modal #thumbnail,
+#confirmation-modal #share p {
+    text-align: center;
+}
+
+#confirm-share:hover, #saveButton:hover, #saveButtonMobile:hover {
+    background-color: #1ca049;
+    color: #ffffff;
+    border: none;
+    border-bottom: none;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.tooltip-inner {
+    background-color: #D9534F;
+}
+.tooltip.top .tooltip-arrow {
+    border-top-color: #D9534F;
+}
+
+/*===== Mobile portrait ======*/
 @media (orientation: portrait){
     #app-header, #app-container {
         display: block;
@@ -157,7 +235,9 @@ body {
         display: none;
     }
 }
-@media (max-width: 799px) and (orientation: landscape) {
+
+/*===== Mobile landscape ======*/
+@media (max-width: 799px) and (orientation: landscape) and (min-aspect-ratio: 16/9) {
     #app-header, #app-container {
         display: none;
     }
@@ -171,6 +251,17 @@ body {
     }
 }
 
+/*===== Mobile portrait with keyboard ======*/
+@media (max-width: 799px) and (orientation: landscape) and (max-aspect-ratio: 16/9) {
+    .pitch{
+        height: 135vh; /* account for keyboard space */
+    }
+
+    #mobile-lanscape-warning {
+        display: none;
+    }
+}
+
 /* Extra small devices (phones, less than 768px) */
 /* No media query since this is the default in Bootstrap */
 /* Small devices (tablets, 800px and up) */
@@ -180,12 +271,12 @@ body {
         margin: 0 auto;
     }
 
-    #mobile-lanscape-warning {
-        display: none;
+    .container-fluid > .navbar-header {
+        margin-left: 50px;
     }
 
-    #header-nav p.navbar-text {
-        font-size: 1.5em;
+    #mobile-lanscape-warning {
+        display: none;
     }
 
     #tabs-container {

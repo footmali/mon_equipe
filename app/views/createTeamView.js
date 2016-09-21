@@ -9,6 +9,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
             players: {},
             formations: {},
             team: {},
+            team_name: '',
 
             initialize: function(options) {
                 var self        = this;
@@ -17,12 +18,33 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 this.formations = options.formations || {};
                 this.team = new Team();
 
-                this.on('imageUploaded', function(imageUrl) {
-                    this.showConfirmModal(imageUrl);
+                // callback for image upload event
+                this.on('imageUploaded', function(resp) {
+                    this.showConfirmModal(resp);
                 });
 
+                // callback for view rendered event
                 this.on('viewRendered', function() {
                     this.initializeFormation();
+                    $('#saveButton, #saveButtonMobile').removeAttr('disabled');
+                });
+
+                // listen for the mobile submit, because it out of view scope
+                $('#saveButtonMobile').click(function() {
+                    self.saveImage();
+                });
+
+                // Sync the value of the two team name input fields
+                $('body').on('keyup', 'input[name="team_name"]', function() {
+                    var value = $(this).val();
+                    console.log(value);
+                    $('input[name="team_name"]').each(function() {
+                        $(this).val(value);
+                    });
+                });
+                // remove tooltip on focus of team name input fields
+                $('body').on('focus', 'input[name="team_name"]',function() {
+                    $('input[name="team_name"]').tooltip('destroy');
                 });
 
                 this.render();
@@ -33,7 +55,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 "click #mobile-formation li": "formationSelected",
                 "click .player": "onClickAddPlayer",
                 "click #players-pool a": "addPlayer",
-                "click #saveButton": "saveImage"
+                "click #saveButton": "saveImage",
             },
 
             render: function() {
@@ -44,7 +66,8 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     formations: self.formations,
                     currentFormation: self.currentFormation,
                     players: self.players,
-                    team: self.team
+                    team: self.team,
+                    team_name: self.team_name,
                 }));
 
                 // @TODO: Update active formation selection
@@ -77,6 +100,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 if (this.currentFormation != formation) {
                     // update currentFormation
                     this.currentFormation = formation;
+                    this.team_name = this.getTeamName();
                     this.render();
                 }
             },
@@ -94,6 +118,15 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                 if(player.hasClass('disabled')) {
                     return;
                 }else{
+                    //@TODO enabled the replacing player
+                    var replacePlayer = this.team.where({position: this.squadPosition}).length;
+                    if(replacePlayer){
+                        var rpName = $('.player[data-position="'+this.squadPosition+'"]')
+                                        .find('.plate .name').text();
+                        console.log(rpName);
+                        rpParent = $('#players-pool .name')
+                    }
+
                     // extract player name and field position number
                     var playerName = $('.name', player).text();
                     var formationPosition = '.player[data-position="'+this.squadPosition+'"]';
@@ -107,7 +140,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
                     // disable player from selection
                     player.addClass('disabled');
 
-                    //store in team collections
+                    //store player in team collections
                     this.team.add({
                         position: self.squadPosition,
                         name: playerName
@@ -119,78 +152,82 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'aws', 'collections/te
             },
 
             saveImage: function() {
+                //disable buttons
+                $('#saveButton, #saveButtonMobile').attr('disabled', 'disabled');
                 var self = this;
-                var mobile_name = $('input[name="team_name"].mobile').val();
-                var large_name = $('input[name="team_name"].large').val();
-                var team_name = _.isEmpty(mobile_name) ? large_name : mobile_name;
+                var team_name = this.getTeamName();
 
                 //Error if no team name is provided
                 if(_.isEmpty(team_name)){
                     $('input[name="team_name"]').tooltip('show');
+                    $('#saveButton, #saveButtonMobile').removeAttr('disabled');
                     return;
                 }
 
-                // get content from pitch
-                var team = $('#pitch').html();
-
-                // add pitch content to render canvas
-                $('#render-canvas').html(team)
+                // add pitch content to render canvases
+                var canvas = $('#render-canvas');
+                var facebook = $('#render-facebook');
+                canvas.html($('#pitch').html());
+                facebook.html($('#pitch').html());
 
                 //Generate image
-                domtoimage.toPng(document.getElementById('render-canvas'), {
-                    width: 768,
-                    height: 1024
+                domtoimage.toPng(canvas[0], {
+                    width: 1200,
+                    height: 900,
+                    style: {
+                        display: 'flex'
+                    }
                 })
                 .then(function (dataUrl) {
-
+                    var formData = new FormData();
+                    formData.append('name', team_name);
+                    formData.append('image', dataUrl);
                     //Save to server
-                    var blob = self.dataURLtoBlob(dataUrl);
-                    var params = {
-                        Key: team_name,
-                        ContentType: 'image/png',
-                        Body: blob,
-                        ACL: 'public-read'
-                    };
-                    self.bucket.putObject(params, function (err, data) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log(arguments);
-                            var imageUrl = 'https://s3.eu-central-1.amazonaws.com/mon-equipe/'+team_name
-                            self.trigger('imageUploaded', imageUrl);
-                        }
-                    });
-
-
+                    self.upload(formData);
                 });
             },
 
-            showConfirmModal: function(imageUrl) {
-                var template = _.template(confirmModalTemplate);
+            getTeamName: function() {
+                var mobile_name = $('input[name="team_name"].mobile').val();
+                var large_name = $('input[name="team_name"].large').val();
+                var team_name = _.isEmpty(mobile_name) ? large_name : mobile_name;
 
+                return team_name;
+            },
+
+            showConfirmModal: function(resp) {
+                var self = this;
+                var template = _.template(confirmModalTemplate);
                 this.$el.append(template({
-                    imageUrl: imageUrl
+                    team: resp
                 }));
 
-                this.$el.find('#confirmation-modal #thumbnail').css({
-                    'background-image': 'url('+imageUrl+')',
-                    'background-size': 'cover',
-                    'background-repeat': 'no-repeat',
-                    'background-origin': 'content-box',
-                    'height': '250px'
+                $('#confirmation-modal').modal('show');
+                $('#confirmation-modal').on('hidden.bs.modal', function (e) {
+                    //reset team creation canvas
+                    $('#saveButton').val('');
+                    $('#saveButtonMobile').val('');
+                    self.team = new Team();
+                    self.team_name = '';
+                    self.render();
+                })
+            },
+
+            upload: function(data) {
+                var self = this;
+                var promise = $.ajax({
+                    method: 'post',
+                    url: 'upload.php',
+                    data: data,
+                    processData: false,
+                    contentType: false
+                }).done(function(resp){
+                    //@TODO handle bad response
+                    self.trigger('imageUploaded', JSON.parse(resp));
                 });
 
-                $('#confirmation-modal').modal('show');
-            },
-
-            dataURLtoBlob: function(dataurl) {
-                var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
-                    bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
-                while(n--){
-                    u8arr[n] = bstr.charCodeAt(n);
-                }
-                return new Blob([u8arr], {type:mime});
-            },
+                return promise;
+            }
 
         });
 
