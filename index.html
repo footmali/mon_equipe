@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <meta content="width=device-width,initial-scale=1" name="viewport">
-        <title>Team Builder</title>
+        <title>Mon Équipe</title>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="app/assets/css/style.css">
@@ -17,7 +17,15 @@
                   <a id="header-nav-logo" class="navbar-brand" title="Footmali" href="#"></a>
                 </div>
                 <div class="collapse navbar-collapse">
-                    <p class="navbar-text">Mon Équipe</p>
+                    <p class="navbar-text">Mon Équipe
+                        <div
+                          class="fb-like"
+                          data-share="true"
+                          data-width="450"
+                          data-show-faces="true">
+                        </div>
+                    </p>
+
                 </div>
               </div>
             </nav>
@@ -43,10 +51,10 @@
                         <label for="team_name">Team Name</label>
                         <input type="text" class="form-control mobile" name="team_name"
                         placeholder="Team Name" data-toggle="tooltip"
-                        data-placement="top" title="" data-original-title="Team name cannot be empty">
+                        data-placement="top" title="" data-original-title="Team name cannot be empty" value="">
                     </div>
                     <div class="col-xs-4">
-                        <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
+                        <button id="saveButtonMobile" type="button" class="btn btn-primary">Sauve</button>
                     </div>
                 </div>
             </div>
@@ -66,4 +74,22 @@
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script data-main="app/index" src="node_modules/requirejs/require.js" async></script>
+    <!-- Facebook -->
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId: '1018961134869165',
+                status: true,
+                xfbml: true,
+                version: 'v2.7'
+            });
+        };
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/fr_FR/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 </html>
