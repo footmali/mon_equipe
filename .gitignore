@@ -5,6 +5,7 @@
 node_modules
 comps
 public/teams/**/*
+!public/teams/**/README.md
 dump.rdb
 
 ### OSX ###
