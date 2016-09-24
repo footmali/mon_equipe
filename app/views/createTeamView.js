@@ -156,6 +156,11 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
             saveImage: function() {
                 //disable buttons
                 $('#saveButton, #saveButtonMobile').attr('disabled', 'disabled');
+                this.$el.find('#loading-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
                 var self = this;
                 var team_name = this.getTeamName();
 
@@ -196,6 +201,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
             showConfirmModal: function(response) {
                 this.confirmationView = new ConfirmationView(response);
                 this.confirmationView.render();
+                this.$el.find('#loading-modal').modal('hide');
 
                 this.listenTo(this.confirmationView, 'confirmation:close', this.resetCanvas);
             },
