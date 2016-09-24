@@ -1,26 +1,28 @@
 define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
-    'text!templates/create-team.html', 'text!templates/confirmationModal.html'],
-    function(Backbone, _, $, domtoimage, Team, appTemplate, confirmModalTemplate){
+    'views/confirmationView','text!templates/create-team.html',
+    'text!templates/confirmationModal.html'],
+    function(Backbone, _, $, domtoimage, Team, ConfirmationView, appTemplate,
+        confirmModalTemplate){
         var CreateTeamView = Backbone.View.extend({
             template: _.template(appTemplate),
-            currentFormation: '',
-            squadPosition: '',
-            bucket: {},
-            players: {},
-            formations: {},
-            team: {},
-            team_name: '',
 
             initialize: function(options) {
-                var self        = this;
-                this.bucket     = options.bucket || {};
-                this.players    = options.players || {};
-                this.formations = options.formations || {};
-                this.team = new Team();
+                var self                = this;
+                this.bucket             = options.bucket || {};
+                this.players            = options.players || {};
+                this.formations         = options.formations || {};
+                this.team               = new Team() || {};
+                this.currentFormation   = '';
+                this.squadPosition      = '';
+                this.team_name          = '';
 
                 // callback for image upload event
-                this.on('imageUploaded', function(resp) {
-                    this.showConfirmModal(resp);
+                this.on('createTeam:imageUploaded', function(response) {
+                    this.showConfirmModal(response);
+                });
+
+                this.on('createTeam:imageUploadError', function () {
+                    //handl image upload error
                 });
 
                 // callback for view rendered event
@@ -51,11 +53,11 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
             },
 
             events: {
-                "change #formation-option": "formationSelected",
-                "click #mobile-formation li": "formationSelected",
-                "click .player": "onClickAddPlayer",
-                "click #players-pool a": "addPlayer",
-                "click #saveButton": "saveImage",
+                'change #formation-option': 'formationSelected',
+                'click #mobile-formation li': 'formationSelected',
+                'click .player': 'onClickAddPlayer',
+                'click #players-pool a': 'addPlayer',
+                'click #saveButton': 'saveImage',
             },
 
             render: function() {
@@ -166,19 +168,15 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
 
                 // add pitch content to render canvases
                 var canvas = $('#render-canvas');
-                var facebook = $('#render-facebook');
                 canvas.html($('#pitch').html());
-                facebook.html($('#pitch').html());
 
                 //Generate image
-                domtoimage.toPng(canvas[0], {
+                var options = {
                     width: 1200,
                     height: 900,
-                    style: {
-                        display: 'flex'
-                    }
-                })
-                .then(function (dataUrl) {
+                    style: { display: 'flex'}
+                };
+                domtoimage.toPng(canvas[0], options).then(function (dataUrl) {
                     var formData = new FormData();
                     formData.append('name', team_name);
                     formData.append('image', dataUrl);
@@ -195,22 +193,20 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 return team_name;
             },
 
-            showConfirmModal: function(resp) {
-                var self = this;
-                var template = _.template(confirmModalTemplate);
-                this.$el.append(template({
-                    team: resp
-                }));
+            showConfirmModal: function(response) {
+                this.confirmationView = new ConfirmationView(response);
+                this.confirmationView.render();
 
-                $('#confirmation-modal').modal('show');
-                $('#confirmation-modal').on('hidden.bs.modal', function (e) {
-                    //reset team creation canvas
-                    $('#saveButton').val('');
-                    $('#saveButtonMobile').val('');
-                    self.team = new Team();
-                    self.team_name = '';
-                    self.render();
-                })
+                this.listenTo(this.confirmationView, 'confirmation:close', this.resetCanvas);
+            },
+
+            resetCanvas: function() {
+                //reset team creation canvas
+                this.$el.find('#saveButton').val('');
+                $('#saveButtonMobile').val('');
+                this.team = new Team();
+                this.team_name = '';
+                this.render();
             },
 
             upload: function(data) {
@@ -221,9 +217,10 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                     data: data,
                     processData: false,
                     contentType: false
-                }).done(function(resp){
-                    //@TODO handle bad response
-                    self.trigger('imageUploaded', JSON.parse(resp));
+                }).then(function(response,  textStatus, jqXHR){
+                    self.trigger('createTeam:imageUploaded', JSON.parse(response));
+                }, function( jqXHR, textStatus, errorThrown ){
+                    self.trigger('createTeam:imageUploadError', JSON.parse(jqXHR.responseText));
                 });
 
                 return promise;
