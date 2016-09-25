@@ -1,10 +1,8 @@
 define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
-    'views/confirmationView','text!templates/create-team.html',
-    'text!templates/confirmationModal.html'],
-    function(Backbone, _, $, domtoimage, Team, ConfirmationView, appTemplate,
-        confirmModalTemplate){
+    'views/confirmationView','text!templates/create-team.html'],
+    function(Backbone, _, $, domtoimage, Team, ConfirmationView, viewTemplate){
         var CreateTeamView = Backbone.View.extend({
-            template: _.template(appTemplate),
+            template: _.template(viewTemplate),
 
             initialize: function(options) {
                 var self                = this;

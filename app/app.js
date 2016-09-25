@@ -1,6 +1,6 @@
 define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
-    'views/createTeamView', 'data/formations'],
-    function (Backbone, _, $, PlayerPool, CreateTeamView, formationsData) {
+    'collections/squadCollection', 'views/createTeamView', 'views/squadsView', 'data/formations'],
+    function (Backbone, _, $, PlayerPool, SquadCollection, CreateTeamView, SquadView, formationsData) {
         var Bus = {};
         _.extend(Bus, Backbone.Events);
 
@@ -12,6 +12,12 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             el: '#create-team',
             formations: formationsData,
             players: playerPool.toJSON()
+        });
+
+        var createdSquads = new SquadCollection(window._monEquipeBootstrap.squads);
+        var squadView = new SquadView({
+            collection: createdSquads,
+            el: '#view-teams'
         });
 
     });

@@ -1,3 +1,8 @@
+<?php
+require 'functions.php';
+
+$squads = get_squads();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,6 +69,11 @@
         </div>
         <div class="confirmation-modal-container"></div>
     </body>
+    <script type="text/javascript">
+        window._monEquipeBootstrap = {
+            squads: <?php print $squads ?>
+        }
+    </script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script data-main="app/index" src="node_modules/requirejs/require.js" async></script>
