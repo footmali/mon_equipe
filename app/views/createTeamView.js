@@ -208,8 +208,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
 
             resetCanvas: function() {
                 //reset team creation canvas
-                this.$el.find('#saveButton').val('');
-                $('#saveButtonMobile').val('');
+                $('input[name="team_name"].mobile').val('');
                 this.team = new Team();
                 this.team_name = '';
                 this.render();

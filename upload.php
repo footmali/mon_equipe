@@ -96,7 +96,7 @@ function save_to_redis($metadata) {
     try {
         $redis = new Predis();
         $redis->hmset($metadata['id'], $metadata['team']); // save redis set with filename as key
-        $redis->rpush("team_hashes", $metadata['file_name']); // save set 'key' into list for retrieval
+        $redis->rpush("team_hashes", $metadata['id']); // save set 'key' into list for retrieval
     } catch (Exception $e) {
         $response = json_encode(array(
                         'statusCode' => http_response_code(500),
@@ -109,7 +109,7 @@ function save_to_redis($metadata) {
 }
 
 $metadata = make_image();
-//save_to_redis($metadata);
+save_to_redis($metadata);
 
 $response = json_encode($metadata['team']);
 print $response;

@@ -8,6 +8,7 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
             },
 
             events: {
+                'click #confirm-share': 'share'
             },
 
             render: function() {
@@ -21,6 +22,37 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                 });
 
                 this.$el.find('#confirmation-modal').modal('show');
+            },
+
+            share: function() {
+                var self = this;
+                FB.ui({
+                    method: 'feed',
+
+                    //The link attached to this post
+                    link: 'http://' + window.location.host + '/#/team/' + self.team._id,
+
+                    //The URL of a picture attached to this post
+                    picture: 'http://' + window.location.host + '/public/teams/' + self.team.image_facebook,
+
+                     //The name of the link attachment
+                    name: 'name text',
+
+                     //The caption of the link (appears beneath the link name)
+                    caption: 'caption text',
+
+                    //The description of the link (appears beneath the link caption)
+                    description: 'description text',
+
+                    //Comma-separated list used in Facebook Insights to help you measure the performance
+                    ref: 'monequipe'
+                }, function(response){
+                    if (response && !response.error_message) {
+                        self.$el.find('#confirmation-modal').modal('hide');
+                    } else {
+                        self.$el.find('.alert-warning').fadeIn();
+                    }
+                });
             }
         });
 

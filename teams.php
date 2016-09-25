@@ -10,14 +10,14 @@ date_default_timezone_set('UTC');
 
 Image::configure(array('driver' => 'gd'));
 $redis = new Predis();
-$return = array();
+$response = array();
 
 // get teams name keys
 $teams = $redis->lrange("team_hashes", 0, -1);
 
 // retrieve team data
 foreach ($teams as $team) {
-    array_push($return, $redis->hgetall($team));
+    array_push($response, $redis->hgetall($team));
 }
 
 
@@ -28,11 +28,6 @@ foreach ($teams as $team) {
 //
 // usort($files, "cmp");
 
- ?>
-<pre>
-    <?php print_r($return); exit; ?>
-</pre>
-
-<?php foreach ($files as $file): ?>
-<img src="/public/teams/<?php echo $file['image']->basename; ?>" alt="" />
-<?php endforeach; ?>
+print json_encode($response);
+exit;
+?>
