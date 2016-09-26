@@ -53,6 +53,12 @@ body {
     box-shadow: none;
 }
 
+#app-container .loading-animation {
+    color: #888888;
+    margin: 40% auto 0;
+    text-align: center;
+}
+
 #tabs-container li>a,
 #tabs-container li>a:focus,
 #tabs-container li>a:hover {
@@ -225,14 +231,16 @@ body {
     border-top-color: #D9534F;
 }
 
-#loading-modal .modal-dialog {
-    margin-top: 45%;
-}
-
 #loading-modal .modal-content {
     background: transparent;
     box-shadow: none;
     border: none;
+    color: #fff;
+    text-align: center;
+}
+
+#loading-modal .loading-animation {
+    margin-top: 45%;
     color: #fff;
     text-align: center;
 }
