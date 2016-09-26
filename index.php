@@ -26,15 +26,15 @@ $squads = get_squads();
                 </div>
               </div>
             </nav>
-             <div id="tabs-container">
-                 <ul id="header-tabs" class="nav nav-justified" role="tablist">
-                     <li role="presentation" class="active">
-                         <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
+            <div id="tabs-container">
+                <ul id="header-tabs" class="nav nav-justified" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
                      </li>
                      <li role="presentation">
-                         <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir autre équipes</a>
-                     </li>
-                 </ul>
+                        <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir autre équipes</a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div id="app-container" class="container-fluid fixed-container content-container">

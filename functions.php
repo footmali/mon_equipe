@@ -34,6 +34,26 @@ function get_squads() {
     }
 }
 
+function get_squad($id=''){
+    try {
+        $redis = new Predis();
+        $response = array();
+
+        // retrieve team data
+        array_push($response, $redis->hgetall($id));
+
+        return json_encode($response);
+    } catch (Exception $e) {
+        $response = json_encode(array(
+                        'statusCode' => http_response_code(500),
+                        'code' => 'redis'
+                    ));
+
+        print $response;
+        exit;
+    }
+}
+
 /**
 * Generate images
 **/

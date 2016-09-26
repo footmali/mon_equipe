@@ -1,6 +1,6 @@
 define(['backbone', 'underscore', 'jquery', 'text!templates/squads.html'],
     function(Backbone, _, $, viewTemplate){
-        var SquadView = Backbone.View.extend({
+        var SquadsView = Backbone.View.extend({
             template: _.template(viewTemplate),
 
             initialize: function(options) {
@@ -13,5 +13,5 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/squads.html'],
                 }));
             }
         });
-        return SquadView;
+        return SquadsView;
     });
