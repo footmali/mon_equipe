@@ -26,4 +26,7 @@ requirejs.config({
     }
 });
 
-requirejs(['app/app']);
+define(['app/app', 'backbone'], function(App, Backbone) {
+    var app = new App();
+    Backbone.history.start({pushState: true});
+});

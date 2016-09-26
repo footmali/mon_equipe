@@ -10,9 +10,9 @@ $squads = get_squads();
         <meta content="IE=edge" http-equiv="X-UA-Compatible">
         <meta content="width=device-width,initial-scale=1" name="viewport">
         <title>Mon Équipe</title>
-        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
         <link href='https://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="app/assets/css/style.css">
+        <link rel="stylesheet" href="/app/assets/css/style.css">
     </head>
     <body>
         <div id="app-header" class="header-container">
@@ -66,9 +66,9 @@ $squads = get_squads();
             squads: <?php print $squads ?>
         }
     </script>
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script data-main="app/index" src="node_modules/requirejs/require.js" async></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script data-main="/app/index" src="/node_modules/requirejs/require.js" async></script>
     <!-- Facebook -->
     <script>
         window.fbAsyncInit = function() {
