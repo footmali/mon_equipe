@@ -1,3 +1,8 @@
+<?php
+require 'functions.php';
+
+$squads = get_squads();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,21 +39,13 @@
         </div>
         <div id="app-container" class="container-fluid fixed-container content-container">
             <div class="tab-content">
-                <div id="create-team" class="tab-pane active"></div>
-                <div id="view-teams" class="tab-pane"></div>
-            </div>
-            <div id="mobile-menu" class="visible-xs-block">
-                <div class="row center-block">
-                    <div class="col-xs-8">
-                        <label for="team_name">Team Name</label>
-                        <input type="text" class="form-control mobile" name="team_name"
-                        placeholder="Team Name" data-toggle="tooltip"
-                        data-placement="top" title="" data-original-title="Team name cannot be empty" value="">
-                    </div>
-                    <div class="col-xs-4">
-                        <button id="saveButtonMobile" type="button" class="btn btn-primary">Sauve</button>
+                <div id="create-team" class="tab-pane active">
+                    <div class="loading-animation">
+                        <span class="glyphicon glyphicon-refresh spin" aria-hidden="true"></span>
+                        <p>Loading...</p>
                     </div>
                 </div>
+                <div id="view-teams" class="tab-pane"></div>
             </div>
         </div>
         <div id="mobile-lanscape-warning" class="container-fluid">
@@ -62,7 +59,13 @@
                 </div>
             </div>
         </div>
+        <div class="confirmation-modal-container"></div>
     </body>
+    <script type="text/javascript">
+        window._monEquipeBootstrap = {
+            squads: <?php print $squads ?>
+        }
+    </script>
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <script data-main="app/index" src="node_modules/requirejs/require.js" async></script>

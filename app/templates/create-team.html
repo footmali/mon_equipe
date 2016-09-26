@@ -110,8 +110,21 @@
     </div>
     <div id="render-canvas" class="pitch"></div>
 </div>
+<div id="mobile-menu" class="visible-xs-block">
+    <div class="row center-block">
+        <div class="col-xs-8">
+            <label for="team_name">Team Name</label>
+            <input type="text" class="form-control mobile" name="team_name"
+            placeholder="Team Name" data-toggle="tooltip"
+            data-placement="top" title="" data-original-title="Team name cannot be empty" value="">
+        </div>
+        <div class="col-xs-4">
+            <button id="saveButtonMobile" type="button" class="btn btn-primary">Sauve</button>
+        </div>
+    </div>
+</div>
 
-<!-- Modal -->
+<!-- Player Pool Modal -->
 <div class="modal fade" id="players-pool-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -178,6 +191,20 @@
                         </a>
                     <% }); %>
 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Modal -->
+<div class="modal fade" id="loading-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="loading-animation">
+                    <span class="glyphicon glyphicon-refresh spin" aria-hidden="true"></span>
+                    <p>Saving...</p>
                 </div>
             </div>
         </div>

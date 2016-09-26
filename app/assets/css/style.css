@@ -53,6 +53,12 @@ body {
     box-shadow: none;
 }
 
+#app-container .loading-animation {
+    color: #888888;
+    margin: 40% auto 0;
+    text-align: center;
+}
+
 #tabs-container li>a,
 #tabs-container li>a:focus,
 #tabs-container li>a:hover {
@@ -223,6 +229,40 @@ body {
 }
 .tooltip.top .tooltip-arrow {
     border-top-color: #D9534F;
+}
+
+#loading-modal .modal-content {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    color: #fff;
+    text-align: center;
+}
+
+#loading-modal .loading-animation {
+    margin-top: 45%;
+    color: #fff;
+    text-align: center;
+}
+
+/*===== Animations ======*/
+.spin {
+  animation-duration: 1s;
+  animation-name: spin;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+@-moz-keyframes spin {
+    from { -moz-transform: rotate(0deg); }
+    to { -moz-transform: rotate(360deg); }
+}
+@-webkit-keyframes spin {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
 }
 
 /*===== Mobile portrait ======*/
