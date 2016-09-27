@@ -20,31 +20,13 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 });
 
                 this.on('createTeam:imageUploadError', function () {
-                    //handl image upload error
+                    //@TODO handle image upload error
                 });
 
                 // callback for view rendered event
                 this.on('viewRendered', function() {
                     this.initializeFormation();
                     $('#saveButton, #saveButtonMobile').removeAttr('disabled');
-                });
-
-                // listen for the mobile submit, because it out of view scope
-                $('#saveButtonMobile').click(function() {
-                    self.saveImage();
-                });
-
-                // Sync the value of the two team name input fields
-                $('body').on('keyup', 'input[name="team_name"]', function() {
-                    var value = $(this).val();
-                    console.log(value);
-                    $('input[name="team_name"]').each(function() {
-                        $(this).val(value);
-                    });
-                });
-                // remove tooltip on focus of team name input fields
-                $('body').on('focus', 'input[name="team_name"]',function() {
-                    $('input[name="team_name"]').tooltip('destroy');
                 });
 
                 this.render();
@@ -55,7 +37,9 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 'click #mobile-formation li': 'formationSelected',
                 'click .player': 'onClickAddPlayer',
                 'click #players-pool a': 'addPlayer',
-                'click #saveButton': 'saveImage',
+                'click #saveButton,#saveButtonMobile': 'saveImage',
+                'keyup input[name="team_name"]': 'syncInputValues',
+                'focus input[name="team_name"]': 'destroyErrorTooltip'
             },
 
             render: function() {
@@ -153,25 +137,28 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
 
             saveImage: function() {
                 //disable buttons
-                $('#saveButton, #saveButtonMobile').attr('disabled', 'disabled');
-                this.$el.find('#loading-modal').modal({
-                    backdrop: 'static',
-                    keyboard: false,
-                    show: true
-                });
+                this.$el.find('#saveButton, #saveButtonMobile').attr('disabled', 'disabled');
                 var self = this;
                 var team_name = this.getTeamName();
 
                 //Error if no team name is provided
                 if(_.isEmpty(team_name)){
-                    $('input[name="team_name"]').tooltip('show');
-                    $('#saveButton, #saveButtonMobile').removeAttr('disabled');
+                    this.$el.find('input[name="team_name"]').tooltip('show');
+                    this.$el.find('#saveButton, #saveButtonMobile').removeAttr('disabled');
                     return;
                 }
 
+                // show loader
+                this.$el.find('#loading-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+
                 // add pitch content to render canvases
-                var canvas = $('#render-canvas');
-                canvas.html($('#pitch').html());
+                var pitchContent =  this.$el.find('#pitch').html();
+                var canvas = this.$el.find('#render-canvas');
+                canvas.html(pitchContent);
 
                 //Generate image
                 var options = {
@@ -189,24 +176,23 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
             },
 
             getTeamName: function() {
-                var mobile_name = $('input[name="team_name"].mobile').val();
-                var large_name = $('input[name="team_name"].large').val();
+                var mobile_name = this.$el.find('input[name="team_name"].mobile').val();
+                var large_name = this.$el.find('input[name="team_name"].large').val();
                 var team_name = _.isEmpty(mobile_name) ? large_name : mobile_name;
 
                 return team_name;
             },
 
             showConfirmModal: function(response) {
-                this.confirmationView = new ConfirmationView(response);
-                this.confirmationView.render();
+                var confirmationView = new ConfirmationView(response);
+                confirmationView.render();
                 this.$el.find('#loading-modal').modal('hide');
 
-                this.listenTo(this.confirmationView, 'confirmation:close', this.resetCanvas);
+                this.listenTo(confirmationView, 'confirmation:close', this.resetCanvas);
             },
 
             resetCanvas: function() {
                 //reset team creation canvas
-                $('input[name="team_name"].mobile').val('');
                 this.team = new Team();
                 this.team_name = '';
                 this.render();
@@ -227,6 +213,18 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 });
 
                 return promise;
+            },
+
+            syncInputValues: function() {
+                var value = $(this).val();
+                console.log(value);
+                $('input[name="team_name"]').each(function() {
+                    $(this).val(value);
+                });
+            },
+
+            destroyErrorTooltip: function() {
+                $('input[name="team_name"]').tooltip('destroy');
             }
 
         });
