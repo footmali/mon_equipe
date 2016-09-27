@@ -1,6 +1,6 @@
 define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
-    'collections/squadCollection', 'views/createTeamView', 'views/squadsView', 'data/formations'],
-    function (Backbone, _, $, PlayerPool, SquadCollection, CreateTeamView, SquadView, formationsData) {
+    'collections/squadCollection', 'models/squad', 'views/createTeamView', 'views/squadsView', 'views/squadView', 'data/formations'],
+    function (Backbone, _, $, PlayerPool, SquadCollection, Squad, CreateTeamView, SquadsView, SquadView, formationsData) {
         var App = Backbone.Router.extend({
             routes: {
                 '':             'index',
@@ -8,28 +8,43 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             index: function() {
-                var Bus = {};
-                _.extend(Bus, Backbone.Events);
+                $('#tabs-container').show();
 
                 //load players data
                 var playerPool = new PlayerPool();
 
-                //render main view
+                //render create team view
                 var createTeamView = new CreateTeamView({
                     el: '#create-team',
                     formations: formationsData,
                     players: playerPool.toJSON()
                 });
 
+                //render squads view
                 var createdSquads = new SquadCollection(window._monEquipeBootstrap.squads);
-                var squadView = new SquadView({
+                var squadsView = new SquadsView({
                     collection: createdSquads,
                     el: '#view-teams'
                 });
+                this.listenTo(squadsView, 'squadsView:showSquad', function(id) {
+                    this.navigate('squad/'+id, {trigger: true});
+                }, this);
             },
 
             squad: function(id) {
-                console.log('Get All Squad', id);
+                $('#tabs-container').hide();
+                var squad = new Squad();
+
+                squad.fetch({
+                    data: $.param({team: id}),
+                    success: function(response) {
+                        new SquadView({
+                            el: '#app-container',
+                            model: squad
+                        });
+                    }
+                });
+
             }
         });
         return App;

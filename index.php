@@ -26,7 +26,7 @@ $squads = get_squads();
                 </div>
               </div>
             </nav>
-            <div id="tabs-container">
+            <div id="tabs-container" style="display:none;">
                 <ul id="header-tabs" class="nav nav-justified" role="tablist">
                     <li role="presentation" class="active">
                         <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>

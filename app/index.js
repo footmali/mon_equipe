@@ -28,5 +28,5 @@ requirejs.config({
 
 define(['app/app', 'backbone'], function(App, Backbone) {
     var app = new App();
-    Backbone.history.start({pushState: true});
+    Backbone.history.start({hashChange: false});
 });
