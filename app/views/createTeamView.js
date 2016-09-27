@@ -215,8 +215,8 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 return promise;
             },
 
-            syncInputValues: function() {
-                var value = $(this).val();
+            syncInputValues: function(e) {
+                var value = $(e.currentTarget).val();
                 console.log(value);
                 $('input[name="team_name"]').each(function() {
                     $(this).val(value);
