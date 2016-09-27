@@ -30,7 +30,7 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                     method: 'feed',
 
                     //The link attached to this post
-                    link: 'http://' + window.location.host + '/squad/' + self.team._id,
+                    link: 'http://' + window.location.host + '/squad/' + self.team.id,
 
                     //The URL of a picture attached to this post
                     picture: 'http://' + window.location.host + '/public/teams/' + self.team.image_facebook,
@@ -39,7 +39,7 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                     name: self.team.name,
 
                     //The description of the link (appears beneath the link caption)
-                    description: 'Footmali.com Mon Équipe. Choisir votre équipe. Partagez avec vos amis.',
+                    description: 'Footmali.com | Mon Équipe. Choisir votre équipe. Partagez avec vos amis.',
 
                      //The caption of the link (appears beneath the link name)
                     caption: 'via Footmali.com',
