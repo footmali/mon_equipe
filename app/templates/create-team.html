@@ -2,10 +2,10 @@
     <div id="menu" class="well hidden-xs">
         <div class="row center-block">
             <div class="col-sm-5">
-                <label for="team_name">Team Name</label>
+                <label for="team_name">Nom</label>
                 <input type="text" class="form-control large" name="team_name"
-                    placeholder="Team Name" data-toggle="tooltip"
-                    data-placement="top" title="" data-original-title="Team name cannot be empty"
+                    placeholder="Le nom de votre équipe" data-toggle="tooltip"
+                    data-placement="top" title="" data-original-title="Veuillez renseigner le nom de votre équipe"
                     value="<%= team_name %>">
             </div>
             <div class="col-sm-4">
@@ -19,7 +19,7 @@
                 </select>
             </div>
             <div class="col-sm-3">
-                <button id="saveButton" type="button" class="btn btn-primary">Sauve</button>
+                <button id="saveButton" type="button" class="btn btn-primary">Sauvegarder</button>
             </div>
         </div>
     </div>
@@ -113,13 +113,13 @@
 <div id="mobile-menu" class="visible-xs-block">
     <div class="row center-block">
         <div class="col-xs-8">
-            <label for="team_name">Team Name</label>
+            <label for="team_name">Nom</label>
             <input type="text" class="form-control mobile" name="team_name"
-            placeholder="Team Name" data-toggle="tooltip"
-            data-placement="top" title="" data-original-title="Team name cannot be empty" value="">
+            placeholder="Le nom de votre équipe" data-toggle="tooltip"
+            data-placement="top" title="" data-original-title="Veuillez renseigner le nom de votre équipe" value="">
         </div>
         <div class="col-xs-4">
-            <button id="saveButtonMobile" type="button" class="btn btn-primary">Sauve</button>
+            <button id="saveButtonMobile" type="button" class="btn btn-primary">Sauvegarder</button>
         </div>
     </div>
 </div>
@@ -132,7 +132,7 @@
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Players Pool</h4>
+                <h4 class="modal-title" id="myModalLabel">Joueurs</h4>
             </div>
             <div class="modal-body">
                <div id="players-pool" class="list-group">
@@ -204,7 +204,7 @@
             <div class="modal-body">
                 <div class="loading-animation">
                     <span class="glyphicon glyphicon-refresh spin" aria-hidden="true"></span>
-                    <p>Saving...</p>
+                    <p>Sauvegarde...</p>
                 </div>
             </div>
         </div>

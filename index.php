@@ -32,7 +32,7 @@ $squads = get_squads();
                         <a href="#create-team" id="create-team-tab" role="tab" data-toggle="tab">Creez votre équipe</a>
                      </li>
                      <li role="presentation">
-                        <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir autre équipes</a>
+                        <a href="#view-teams" id="view-teams-tab" role="tab" data-toggle="tab">Voir d'autres équipes</a>
                     </li>
                 </ul>
             </div>

@@ -102,13 +102,12 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 if(player.hasClass('disabled')) {
                     return;
                 }else{
-                    //@TODO enabled the replacing player
                     var replacePlayer = this.team.where({position: this.squadPosition}).length;
                     if(replacePlayer){
                         var rpName = $('.player[data-position="'+this.squadPosition+'"]')
                                         .find('.plate .name').text();
                         console.log(rpName);
-                        rpParent = $('#players-pool .name')
+                        $('#players-pool .name:contains('+ rpName+')').parent('a').removeClass('disabled');
                     }
 
                     // extract player name and field position number
