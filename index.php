@@ -73,7 +73,7 @@ $squads = get_squads();
     <script>
         window.fbAsyncInit = function() {
             FB.init({
-                appId: '1018961134869165',
+                appId: '714044432027505',
                 status: true,
                 xfbml: true,
                 version: 'v2.7'
