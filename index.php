@@ -102,6 +102,7 @@ $squads = get_squads();
 
         ga('create', 'UA-20124674-1', 'auto');
         ga('require', 'displayfeatures');
-        ga('set', 'campaignSource', 'Mon Equipe');
+        ga('set', 'dataSource', 'monequipe');
+        ga('set', 'trafficType', 'monequipe');
     </script>
 </html>
