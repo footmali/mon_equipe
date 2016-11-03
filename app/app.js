@@ -12,7 +12,6 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             index: function() {
-                gAnalytic('set', 'campaignSource', 'Mon Equipe');
                 gAnalytic('send', 'pageview', {title: 'Creez Votre Équipe'});
 
                 $('#tabs-container').show();
@@ -39,7 +38,6 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             squad: function(id) {
-                gAnalytic('set', 'campaignSource', 'Mon Equipe');
                 gAnalytic('send', 'pageview', {title: 'Équipe: ' + id});
 
                 $('#tabs-container').hide();
