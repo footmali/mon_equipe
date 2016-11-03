@@ -2,12 +2,19 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
     'collections/squadCollection', 'models/squad', 'views/createTeamView', 'views/squadsView', 'views/squadView', 'data/formations'],
     function (Backbone, _, $, PlayerPool, SquadCollection, Squad, CreateTeamView, SquadsView, SquadView, formationsData) {
         var App = Backbone.Router.extend({
+            initialize: function() {
+                window.gAnalytic = window.ga || {};
+            },
+
             routes: {
                 '':             'index',
                 'squad/(:id)':  'squad'
             },
 
             index: function() {
+                gAnalytic('set', 'campaignSource', 'Mon Equipe');
+                gAnalytic('send', 'pageview', {title: 'Creez Votre Équipe'});
+
                 $('#tabs-container').show();
 
                 //load players data
@@ -32,6 +39,9 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             squad: function(id) {
+                gAnalytic('set', 'campaignSource', 'Mon Equipe');
+                gAnalytic('send', 'pageview', {title: 'Équipe: ' + id});
+
                 $('#tabs-container').hide();
                 var squad = new Squad();
 

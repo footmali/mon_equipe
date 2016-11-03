@@ -36,7 +36,7 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                     picture: 'http://' + window.location.host + '/public/teams/' + self.team.image_facebook,
 
                      //The name of the link attachment
-                    name: self.team.name,
+                    name: self.team.name.replace(/\b\w/g, function(l){ return l.toUpperCase() }),
 
                     //The description of the link (appears beneath the link caption)
                     description: 'Footmali.com | Mon Équipe. Choisir votre équipe. Partagez avec vos amis.',
