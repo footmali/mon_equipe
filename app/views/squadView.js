@@ -30,7 +30,7 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
                 name: team.name.replace(/\b\w/g, function(l){ return l.toUpperCase() }),
 
                 //The description of the link (appears beneath the link caption)
-                description: 'Footmali.com | Mon Équipe. Créez votre équipe de rêve et Partagez avec des amis.',
+                description: 'Footmali.com | Mon Équipe. Créez votre équipe de rêve. Partagez avec des amis',
 
                  //The caption of the link (appears beneath the link name)
                 caption: 'via Footmali.com',

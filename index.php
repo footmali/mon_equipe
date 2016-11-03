@@ -15,6 +15,13 @@ $squads = get_squads();
         <link rel="stylesheet" href="/app/assets/css/style.css">
     </head>
     <body>
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-7538390076513661",
+            enable_page_level_ads: true
+          });
+        </script>
         <div id="app-header" class="header-container">
             <nav id="header-nav" class="navbar navbar-default">
               <div class="container-fluid">

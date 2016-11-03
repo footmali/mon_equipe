@@ -12,7 +12,7 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             index: function() {
-                gAnalytic('send', 'pageview', {title: 'Creez Votre Équipe'});
+                gAnalytic('send', 'pageview', {title: 'Mon Équipe | Footmali.com | Creez Votre Équipe'});
 
                 $('#tabs-container').show();
 
@@ -38,7 +38,7 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             squad: function(id) {
-                gAnalytic('send', 'pageview', {title: 'Équipe: ' + id});
+                gAnalytic('send', 'pageview', {title: 'Mon Équipe | Footmali.com | Équipe: ' + id});
 
                 $('#tabs-container').hide();
                 var squad = new Squad();
