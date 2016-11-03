@@ -4,6 +4,11 @@
             <img src="<%= window.location.origin %>/public/teams/<%= squad.image_original %>" alt="<%= squad.name %>">
             <div class="caption">
                 <h3><%= squad.name %></h3>
+                <p style="text-align: right; margin-top: -40px;">
+                    <button id="confirm-share" type="button" class="btn btn-success" data-team="<%= squad %>">
+                        Partagez
+                    </button>
+                </p>
             </div>
         </div>
     </div>

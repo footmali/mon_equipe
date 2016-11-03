@@ -2,81 +2,132 @@ define({
     "keepers": [
         {
             "name": "Djigui Diarra",
-            "position": "Keeper",
+            "position": "Gardien",
             "mainPosition":"keeper"
         },
         {
-            "name": "Soumbeyla Diakité",
-            "position": "Keeper",
+            "name": "Soumaila Diakité",
+            "position": "Gardien",
             "mainPosition":"keeper"
         },
         {
-            "name": "Oumar Sissoko",
-            "position": "Keeper",
+            "name": "Adama Keita",
+            "position": "Gardien",
             "mainPosition":"keeper"
         },
         {
-            "name": "Germain Berthé",
-            "position": "Keeper",
+            "name": "N'Tji Michel Samaké",
+            "position": "Gardien",
             "mainPosition":"keeper"
         }
     ],
     "defenders": [
         {
             "name": "Hamari Traoré",
-            "position": "Right Back",
+            "position": "Défenseur",
               "mainPosition":"defender"
         },
         {
             "name": "Molla Wague",
-            "position": "Center Back",
+            "position": "Défenseur",
             "mainPosition":"defender"
         },
         {
             "name": "Ousmane Coulibaly",
-            "position": "Center Back",
+            "position": "Défenseur",
+            "mainPosition":"defender"
+        },
+        {
+            "name": "Salif Coulibaly",
+            "position": "Défenseur",
+            "mainPosition":"defender"
+        },
+        {
+            "name": "Mohamed Konaté",
+            "position": "Défenseur",
+            "mainPosition":"defender"
+        },
+        {
+            "name": "Cheick Keita",
+            "position": "Défenseur",
+            "mainPosition":"defender"
+        },
+        {
+            "name": "Mahamadou N'Diaye",
+            "position": "Défenseur",
             "mainPosition":"defender"
         },
         {
             "name": "Youssouf Kone",
-            "position": "Left Back",
+            "position": "Défenseur",
             "mainPosition":"defender"
         }
     ],
     "midfielders": [
         {
             "name": "Sambou Yatabare",
-            "position": "Midfielder",
+            "position": "Milieu",
             "mainPosition":"midfielder"
         },
         {
-            "name": "Birama Toure",
-            "position": "Midfielder",
+            "name": "Mamoutou N'Diaye",
+            "position": "Milieu",
             "mainPosition":"midfielder"
 
         },
         {
             "name": "Yacouba Sylla",
-            "position": "Midfielder",
+            "position": "Milieu",
             "mainPosition":"midfielder"
         },
         {
-            "name": "Bakary Sako",
-            "position": "Midfielder",
+            "name": "Samba Sow",
+            "position": "Milieu",
+            "mainPosition":"midfielder"
+        },
+        {
+            "name": "Lassana Coulibaly",
+            "position": "Milieu",
+            "mainPosition":"midfielder"
+        },
+        {
+            "name": "Adama Traoré",
+            "position": "Milieu",
             "mainPosition":"midfielder"
         }
     ],
     "attackers": [
         {
-            "name": "Abdoulay Diaby",
-            "position": "Striker",
+            "name": "Abdoulaye Diaby",
+            "position": "Attaquant",
             "mainPosition":"striker"
 
         },
         {
-            "name": "Cheick Diabate",
-            "position": "Striker",
+            "name": "Moussa Maréga",
+            "position": "Attaquant",
+            "mainPosition":"striker"
+        },
+        {
+            "name": "Modibo Maiga",
+            "position": "Attaquant",
+            "mainPosition":"striker"
+        },
+        {
+            "name": "Moussa Doumbia",
+            "position": "Attaquant",
+            "mainPosition":"striker"
+        },
+        {
+            "name": "Bakary Sako",
+            "position": "Attaquant",
+            "mainPosition":"striker"
+        },
+        {
+            "name": "Mustapha Yatabare",
+            "position": "Attaquant",
             "mainPosition":"striker"
         }
+
     ]
 });
