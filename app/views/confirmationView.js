@@ -39,7 +39,7 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                     name: self.team.name.replace(/\b\w/g, function(l){ return l.toUpperCase() }),
 
                     //The description of the link (appears beneath the link caption)
-                    description: 'Footmali.com | Mon Équipe. Choisir votre équipe. Partagez avec vos amis.',
+                    description: 'Footmali.com | Mon Équipe. Créez votre équipe de rêve. Partagez avec des amis.',
 
                      //The caption of the link (appears beneath the link name)
                     caption: 'via Footmali.com',
