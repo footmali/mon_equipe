@@ -207,6 +207,7 @@ img {
 #confirm-share, #saveButton, #saveButtonMobile {
     background-color: #fff;
     color: #1ca049;
+    padding: 6px 8px;
     border: none;
     border-bottom: 2px solid #1ca049;
     font-family: 'Oswald', sans-serif;
