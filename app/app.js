@@ -14,6 +14,12 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             index: function() {
                 gAnalytic('send', 'pageview', {title: 'Mon Équipe | Footmali.com | Creez Votre Équipe'});
 
+                var dest = this.getQueryVariable('dest');
+
+                if(dest){
+                    $('#header-tabs a#'+dest+'-tab').tab('show');
+                }
+
                 $('#tabs-container').show();
 
                 //load players data
@@ -38,6 +44,7 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
             },
 
             squad: function(id) {
+                var self = this;
                 gAnalytic('send', 'pageview', {title: 'Mon Équipe | Footmali.com | Équipe: ' + id});
 
                 $('#tabs-container').hide();
@@ -46,13 +53,28 @@ define(['backbone', 'underscore', 'jquery', 'collections/playerPool',
                 squad.fetch({
                     data: $.param({team: id}),
                     success: function(response) {
-                        new SquadView({
+                       squadView =  new SquadView({
                             el: '#app-container',
                             model: squad
                         });
+
+                        squadView.on('seeAllSquad', function() {
+                            console.log('app');
+                            this.navigate('/?dest=view-teams', {trigger: true});
+                        }, self);
                     }
                 });
 
+            },
+
+            getQueryVariable: function(variable){
+               var query = window.location.search.substring(1);
+               var vars = query.split("&");
+               for (var i=0;i<vars.length;i++) {
+                       var pair = vars[i].split("=");
+                       if(pair[0] == variable){return pair[1];}
+               }
+               return(false);
             }
         });
         return App;
