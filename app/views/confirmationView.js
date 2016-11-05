@@ -49,6 +49,14 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                 }, function(response){
                     if (response && !response.error_message) {
                         self.$el.find('#confirmation-modal').modal('hide');
+                        if(window.gAnalytic){
+                            window.gAnalytic.('send', {
+                              hitType: 'event',
+                              eventCategory: 'Mon Equipe',
+                              eventAction: 'share',
+                              eventLabel: 'Facebook Share'
+                            });
+                        }
                     } else {
                         self.$el.find('.alert-warning').fadeIn();
                     }
