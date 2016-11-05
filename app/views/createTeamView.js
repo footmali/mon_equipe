@@ -207,6 +207,14 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                     contentType: false
                 }).then(function(response,  textStatus, jqXHR){
                     self.trigger('createTeam:imageUploaded', JSON.parse(response));
+                    if(window.gAnalytic){
+                        window.gAnalytic.('send', {
+                          hitType: 'event',
+                          eventCategory: 'Mon Equipe',
+                          eventAction: 'create',
+                          eventLabel: 'Team Created'
+                        });
+                    }
                 }, function( jqXHR, textStatus, errorThrown ){
                     self.trigger('createTeam:imageUploadError', JSON.parse(jqXHR.responseText));
                 });

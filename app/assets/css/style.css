@@ -5,6 +5,7 @@ body {
 img {
     display: block;
     margin: 0 auto;
+    max-width: 100%;
 }
 
 .content-container {
@@ -180,9 +181,9 @@ img {
 .pitch .player .name {
     color: #ffffff;
     font-weight: 900;
-    font-size: 85%;
+    font-size: 92%;
     line-height: 1.25;
-    padding: 10px;
+    padding: 5px;
     display: inline-block;
 }
 .pitch .player.filled .name {

@@ -17,6 +17,15 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
         share: function() {
             var team = this.model.toJSON();
 
+            if(window.gAnalytic){
+                window.gAnalytic.('send', {
+                  hitType: 'event',
+                  eventCategory: 'Mon Equipe',
+                  eventAction: 'click',
+                  eventLabel: 'Share Button'
+                });
+            }
+
             FB.ui({
                 method: 'feed',
 
@@ -38,7 +47,14 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
                 //Comma-separated list used in Facebook Insights to help you measure the performance
                 ref: 'monequipe'
             }, function(response){
-
+                if (response && !response.error_message && window.gAnalytic) {
+                    window.gAnalytic.('send', {
+                      hitType: 'event',
+                      eventCategory: 'Mon Equipe',
+                      eventAction: 'share',
+                      eventLabel: 'Facebook Share'
+                    });
+                }
             });
         }
     });
