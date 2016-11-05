@@ -30,13 +30,13 @@ img {
 
 #header-nav p.navbar-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.5em;
+    font-size: 16px;
     color: #FFFFFF;
     font-weight: 300;
     font-style: italic;
     margin: 0;
     text-transform: uppercase;
-    padding-top: 10px;
+    padding-top: 15px;
 }
 
 .container-fluid > .navbar-header {
@@ -76,6 +76,7 @@ img {
     color: #cdcecf;
     background-color: #ffffff;
     font-family: 'Oswald', sans-serif;
+    font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
 }
@@ -349,6 +350,12 @@ img {
 
     .pitch {
         padding-top: 55px;
+    }
+}
+
+@media (max-width: 400px) {
+    .footmali-link {
+        display: none;
     }
 }
 
