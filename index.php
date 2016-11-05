@@ -108,7 +108,6 @@ $squads = get_squads();
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-20124674-1', 'auto');
-        ga('require', 'displayfeatures');
         ga('set', 'dataSource', 'monequipe');
         ga('set', 'trafficType', 'monequipe');
     </script>
