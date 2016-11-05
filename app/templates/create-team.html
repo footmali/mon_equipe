@@ -30,7 +30,7 @@
         <ul class="dropdown-menu" aria-labelledby="mobile-formation-dropdown">
             <% _.each(formations, function(formation, key){ %>
                 <li>
-                    <a href="#" data-formation="<%= key %>" class="selected" >
+                    <a href="javascript:void(0)" data-formation="<%= key %>" class="selected" >
                         <%= formation.name %>
                     </a>
                 </li>
@@ -136,56 +136,56 @@
             </div>
             <div class="modal-body">
                <div id="players-pool" class="list-group">
-                   <a href="#" class="list-group-item active">GARDIENS</a>
+                   <a href="javascript:void(0)" class="list-group-item active">GARDIENS</a>
                    <% var pKeepers = _.filter(players, function(myKeeper){
                                             return myKeeper.mainPosition === "keeper";
                                         });
                     %>
                    <% _.each(pKeepers, function(player){ %>
                        <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
-                       <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                       <a href="javascript:void(0)" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
                            <strong class="name"><%= player.name %></strong>
                            <small class="position"><%= player.position %></small>
                        </a>
                     <% }); %>
 
                     <!-- DEFENDERS -->
-                    <a href="#" class="list-group-item active">DEFENSEURS</a>
+                    <a href="javascript:void(0)" class="list-group-item active">DEFENSEURS</a>
                     <% var pDefenders = _.filter(players, function(myDefender){
                                             return myDefender.mainPosition === "defender";
                                         });
                     %>
                     <% _.each(pDefenders, function(player){ %>
                         <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
-                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                        <a href="javascript:void(0)" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
                             <strong class="name"><%= player.name %></strong>
                             <small class="position"><%= player.position %></small>
                         </a>
                     <% }); %>
 
                     <!-- MIDFIELDERS -->
-                    <a href="#" class="list-group-item active">MILIEUX DE TERRAIN</a>
+                    <a href="javascript:void(0)" class="list-group-item active">MILIEUX DE TERRAIN</a>
                     <% var pMidfielders = _.filter(players, function(myMidfielder){
                                                 return myMidfielder.mainPosition === "midfielder";
                                             });
                     %>
                     <% _.each(pMidfielders, function(player){ %>
                         <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
-                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                        <a href="javascript:void(0)" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
                             <strong class="name"><%= player.name %></strong>
                             <small class="position"><%= player.position %></small>
                         </a>
                     <% }); %>
 
                     <!-- STRIKERS -->
-                    <a href="#" class="list-group-item active">ATTAQUANTS</a>
+                    <a href="javascript:void(0)" class="list-group-item active">ATTAQUANTS</a>
                     <% var pStrikers = _.filter(players, function(myStriker){
                                             return myStriker.mainPosition === "striker";
                                         });
                     %>
                     <% _.each(pStrikers, function(player){ %>
                         <% var playerSelected = !_.isUndefined( _.first(team.where({ name: player.name })) ); %>
-                        <a href="#" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
+                        <a href="javascript:void(0)" class="list-group-item <% playerSelected ? print('disabled') : print(''); %>">
                             <strong class="name"><%= player.name %></strong>
                             <small class="position"><%= player.position %></small>
                         </a>
