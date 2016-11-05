@@ -48,7 +48,7 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
                 ref: 'monequipe'
             }, function(response){
                 if (response && !response.error_message && window.gAnalytic) {
-                    window.gAnalytic.('send', {
+                    window.gAnalytic('send', {
                       hitType: 'event',
                       eventCategory: 'Mon Equipe',
                       eventAction: 'share',
