@@ -18,7 +18,7 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
             var team = this.model.toJSON();
 
             if(window.gAnalytic){
-                window.gAnalytic.('send', {
+                window.gAnalytic('send', {
                   hitType: 'event',
                   eventCategory: 'Mon Equipe',
                   eventAction: 'click',
