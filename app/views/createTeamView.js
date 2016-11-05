@@ -208,7 +208,7 @@ define(['backbone', 'underscore', 'jquery', 'domtoimage', 'collections/team',
                 }).then(function(response,  textStatus, jqXHR){
                     self.trigger('createTeam:imageUploaded', JSON.parse(response));
                     if(window.gAnalytic){
-                        window.gAnalytic.('send', {
+                        window.gAnalytic('send', {
                           hitType: 'event',
                           eventCategory: 'Mon Equipe',
                           eventAction: 'create',

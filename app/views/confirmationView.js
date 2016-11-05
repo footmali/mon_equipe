@@ -50,7 +50,7 @@ define(['backbone', 'underscore', 'jquery', 'text!templates/confirmationModal.ht
                     if (response && !response.error_message) {
                         self.$el.find('#confirmation-modal').modal('hide');
                         if(window.gAnalytic){
-                            window.gAnalytic.('send', {
+                            window.gAnalytic('send', {
                               hitType: 'event',
                               eventCategory: 'Mon Equipe',
                               eventAction: 'share',
