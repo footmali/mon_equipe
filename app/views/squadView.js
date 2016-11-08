@@ -7,7 +7,8 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
         },
 
         events: {
-            'click #confirm-share': 'share'
+            'click #confirm-share': 'share',
+            'click #see-all': 'allSquad'
         },
 
         render: function() {
@@ -56,6 +57,11 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
                     });
                 }
             });
+        },
+
+        allSquad: function () {
+            this.trigger('seeAllSquad');
+            console.log('See All');
         }
     });
 
