@@ -22,7 +22,7 @@ function get_squads() {
             array_push($response, $redis->hgetall($team));
         }
 
-        return json_encode($response);
+        return json_encode(array_reverse($response));
     } catch (Exception $e) {
         $response = json_encode(array(
                         'statusCode' => http_response_code(500),
