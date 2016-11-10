@@ -18,3 +18,18 @@
 <% }); %>
 
 </div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <nav>
+            <ul class="pager">
+                <% if (currentPage > firstPage){ %>
+                    <li><a class="prev" href="#">PRÉCÉDENT</a></li>
+                <% } %>
+                <% if (currentPage < totalPages){ %>
+                    <li><a class="next" href="#">PROCHAIN</a></li>
+                <% } %>
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -61,7 +61,6 @@ define(['backbone', 'jquery', 'text!templates/squad.html'], function(Backbone, $
 
         allSquad: function () {
             this.trigger('seeAllSquad');
-            console.log('See All');
         }
     });
 
