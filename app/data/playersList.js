@@ -76,9 +76,16 @@ define({
 
         },
         {
-            "name": "Yacouba Sylla",
+            "name": "Yves Bissouma",
             "position": "Milieu",
             "mainPosition":"midfielder"
+
+        },
+         {
+            "name": "Souleymane Diarra",
+            "position": "Milieu",
+            "mainPosition":"midfielder"
+
         },
         {
             "name": "Samba Sow",
@@ -98,12 +105,6 @@ define({
     ],
     "attackers": [
         {
-            "name": "Abdoulaye Diaby",
-            "position": "Attaquant",
-            "mainPosition":"striker"
-
-        },
-        {
             "name": "Moussa Maréga",
             "position": "Attaquant",
             "mainPosition":"striker"
@@ -115,11 +116,6 @@ define({
         },
         {
             "name": "Moussa Doumbia",
-            "position": "Attaquant",
-            "mainPosition":"striker"
-        },
-        {
-            "name": "Bakary Sako",
             "position": "Attaquant",
             "mainPosition":"striker"
         },
